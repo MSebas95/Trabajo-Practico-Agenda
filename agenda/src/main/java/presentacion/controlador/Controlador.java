@@ -8,7 +8,10 @@ import modelo.Agenda;
 import presentacion.reportes.ReporteAgenda;
 import presentacion.vista.VentanaPersona;
 import presentacion.vista.Vista;
+import dto.LocalidadDTO;
+import dto.PaisDTO;
 import dto.PersonaDTO;
+import dto.ProvinciaDTO;
 import dto.TipoContactoDTO;
 
 public class Controlador implements ActionListener
@@ -16,6 +19,11 @@ public class Controlador implements ActionListener
 		private Vista vista;
 		private List<PersonaDTO> personasEnTabla;
 		private List<TipoContactoDTO> tiposDeContactoEnTabla;
+		//-----------------------------------------------------------
+		private List<LocalidadDTO> localidadesEnTabla;
+		private List<ProvinciaDTO> provinciasEnTabla;
+		private List<PaisDTO> paisesEnTabla;
+		//-----------------------------------------------------------
 		private VentanaPersona ventanaPersona; 
 		private Agenda agenda;
 		
@@ -26,9 +34,13 @@ public class Controlador implements ActionListener
 			this.vista.getBtnBorrar().addActionListener(s->borrarPersona(s));
 			this.vista.getBtnReporte().addActionListener(r->mostrarReporte(r));
 			this.agenda = agenda;
-			this.ventanaPersona = VentanaPersona.getInstance(this.agenda.obtenerTiposDeContacto());
+			this.ventanaPersona = VentanaPersona.getInstance(this.agenda.obtenerTiposDeContacto(), this.agenda.obtenerLocalidades(), this.agenda.obtenerProvincias(), this.agenda.obtenerPaises());
 			this.ventanaPersona.setTiposContactoLista(this.agenda.obtenerTiposDeContacto());
 			this.ventanaPersona.getBtnAgregarPersona().addActionListener(p->guardarPersona(p));
+			//------------------------------------------------------------------
+			this.ventanaPersona.setLocalidadLista(this.agenda.obtenerLocalidades());
+			this.ventanaPersona.setProvinciaLista(this.agenda.obtenerProvincias());
+			this.ventanaPersona.setPaisLista(this.agenda.obtenerPaises());
 			
 		}
 		
