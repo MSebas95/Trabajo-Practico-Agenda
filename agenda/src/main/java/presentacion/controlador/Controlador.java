@@ -9,11 +9,13 @@ import presentacion.reportes.ReporteAgenda;
 import presentacion.vista.VentanaPersona;
 import presentacion.vista.Vista;
 import dto.PersonaDTO;
+import dto.TipoContactoDTO;
 
 public class Controlador implements ActionListener
 {
 		private Vista vista;
 		private List<PersonaDTO> personasEnTabla;
+		private List<TipoContactoDTO> tiposDeContactoEnTabla;
 		private VentanaPersona ventanaPersona; 
 		private Agenda agenda;
 		
@@ -23,9 +25,11 @@ public class Controlador implements ActionListener
 			this.vista.getBtnAgregar().addActionListener(a->ventanaAgregarPersona(a));
 			this.vista.getBtnBorrar().addActionListener(s->borrarPersona(s));
 			this.vista.getBtnReporte().addActionListener(r->mostrarReporte(r));
-			this.ventanaPersona = VentanaPersona.getInstance();
-			this.ventanaPersona.getBtnAgregarPersona().addActionListener(p->guardarPersona(p));
 			this.agenda = agenda;
+			this.ventanaPersona = VentanaPersona.getInstance(this.agenda.obtenerTiposDeContacto());
+			this.ventanaPersona.setTiposContactoLista(this.agenda.obtenerTiposDeContacto());
+			this.ventanaPersona.getBtnAgregarPersona().addActionListener(p->guardarPersona(p));
+			
 		}
 		
 		private void ventanaAgregarPersona(ActionEvent a) {

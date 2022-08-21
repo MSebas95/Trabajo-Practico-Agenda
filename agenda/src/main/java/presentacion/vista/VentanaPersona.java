@@ -2,6 +2,9 @@ package presentacion.vista;
 
 
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
@@ -9,6 +12,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
+import dto.TipoContactoDTO;
 
 public class VentanaPersona extends JFrame 
 {
@@ -25,23 +29,36 @@ public class VentanaPersona extends JFrame
 	private JComboBox<String> txtTipoContacto;
 	private JButton btnAgregarPersona;
 	private static VentanaPersona INSTANCE;
+	private List<TipoContactoDTO> tiposContactoLista;  
 	
-	public static VentanaPersona getInstance()
+	public static VentanaPersona getInstance(List<TipoContactoDTO> lista)
 	{
 		if(INSTANCE == null)
 		{
-			INSTANCE = new VentanaPersona(); 	
-			return new VentanaPersona();
+			INSTANCE = new VentanaPersona(lista); 	
+			return new VentanaPersona(lista);
 		}
 		else
 			return INSTANCE;
 	}
 
-	private VentanaPersona() 
+	public List<TipoContactoDTO> getTiposContactoLista() {
+		return tiposContactoLista;
+	}
+
+	public void setTiposContactoLista(List<TipoContactoDTO> tiposContactoLista) {
+		this.tiposContactoLista = tiposContactoLista;
+	}
+
+	private VentanaPersona(List<TipoContactoDTO> lista) 
 	{
 		super();
-		
-		String[] optionsToChoose = {"Apple", "Orange", "Banana", "Pineapple", "None of the listed"};
+		this.tiposContactoLista = lista;
+		ArrayList<String> r = new ArrayList<String>();
+		for (TipoContactoDTO t : this.tiposContactoLista) {
+			r.add(t.getTipo());
+		}
+		String[] optionsToChoose = r.toArray(new String[this.tiposContactoLista.size()]);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 400, 600);
 		contentPane = new JPanel();
