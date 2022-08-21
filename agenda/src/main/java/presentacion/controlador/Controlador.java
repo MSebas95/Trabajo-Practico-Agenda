@@ -35,7 +35,14 @@ public class Controlador implements ActionListener
 		private void guardarPersona(ActionEvent p) {
 			String nombre = this.ventanaPersona.getTxtNombre().getText();
 			String tel = ventanaPersona.getTxtTelefono().getText();
-			PersonaDTO nuevaPersona = new PersonaDTO(0, nombre, tel);
+			String calle = ventanaPersona.getTxtCalle().getText();
+			String altura = ventanaPersona.getTxtAltura().getText();
+			String piso = ventanaPersona.getTxtPiso().getText();
+			String depto = ventanaPersona.getTxtDepto().getText();
+			String email = ventanaPersona.getTxtEmail().getText();
+			String cumpleaños = ventanaPersona.getTxtCumpleaños().getText();
+			String tipoContacto = ventanaPersona.getTxtTipoContacto();
+			PersonaDTO nuevaPersona = new PersonaDTO(0, nombre, tel, calle, altura, piso, depto, email, cumpleaños, tipoContacto);
 			this.agenda.agregarPersona(nuevaPersona);
 			this.refrescarTabla();
 			this.ventanaPersona.cerrar();

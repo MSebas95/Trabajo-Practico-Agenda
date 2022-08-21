@@ -25,7 +25,7 @@ public class Vista
 	private JButton btnBorrar;
 	private JButton btnReporte;
 	private DefaultTableModel modelPersonas;
-	private  String[] nombreColumnas = {"Nombre y apellido","Telefono"};
+	private  String[] nombreColumnas = {"Nombre y apellido","Telefono","Calle","Altura","Piso","Depto","Email","Cumpleaños","Tipo de Contacto", "Localidad"};
 
 	public Vista() 
 	{
@@ -37,25 +37,25 @@ public class Vista
 	private void initialize() 
 	{
 		frame = new JFrame();
-		frame.setBounds(100, 100, 450, 300);
+		frame.setBounds(100, 100, 1600, 400);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		
 		JPanel panel = new JPanel();
-		panel.setBounds(0, 0, 434, 262);
+		panel.setBounds(0, 0, 1500, 262);
 		frame.getContentPane().add(panel);
 		panel.setLayout(null);
 		
 		JScrollPane spPersonas = new JScrollPane();
-		spPersonas.setBounds(10, 11, 414, 182);
+		spPersonas.setBounds(10, 11, 1480, 182);
 		panel.add(spPersonas);
 		
 		modelPersonas = new DefaultTableModel(null,nombreColumnas);
 		tablaPersonas = new JTable(modelPersonas);
 		
-		tablaPersonas.getColumnModel().getColumn(0).setPreferredWidth(103);
+		tablaPersonas.getColumnModel().getColumn(0).setPreferredWidth(53);
 		tablaPersonas.getColumnModel().getColumn(0).setResizable(false);
-		tablaPersonas.getColumnModel().getColumn(1).setPreferredWidth(100);
+		tablaPersonas.getColumnModel().getColumn(1).setPreferredWidth(50);
 		tablaPersonas.getColumnModel().getColumn(1).setResizable(false);
 		
 		spPersonas.setViewportView(tablaPersonas);
@@ -137,7 +137,14 @@ public class Vista
 		{
 			String nombre = p.getNombre();
 			String tel = p.getTelefono();
-			Object[] fila = {nombre, tel};
+			String calle = p.getCalle();
+			String altura = p.getAltura();
+			String piso = p.getPiso();
+			String depto = p.getDepto();
+			String email = p.getEmail();
+			String cumpleaños = p.getCumpleaños();
+			String tipoContacto = p.getTipoContacto();
+			Object[] fila = {nombre, tel, calle, altura, piso, depto, email, cumpleaños, tipoContacto};
 			this.getModelPersonas().addRow(fila);
 		}
 		
