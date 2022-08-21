@@ -3,7 +3,12 @@ package persistencia.conexion;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+
+
+
 import org.apache.log4j.Logger;
+
+
 
 public class Conexion 
 {
@@ -15,7 +20,6 @@ public class Conexion
 	{
 		try
 		{
-			Class.forName("com.mysql.jdbc.Driver"); // quitar si no es necesario
 			this.connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/agenda","root","123456");
 			this.connection.setAutoCommit(false);
 			log.info("Conexión exitosa");
@@ -54,4 +58,5 @@ public class Conexion
 		}
 		instancia = null;
 	}
+	
 }

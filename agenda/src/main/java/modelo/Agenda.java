@@ -6,9 +6,11 @@ import persistencia.dao.interfaz.DAOAbstractFactory;
 import persistencia.dao.interfaz.PersonaDAO;
 
 
+
 public class Agenda 
 {
-	private PersonaDAO persona;	
+	private PersonaDAO persona;
+
 	
 	public Agenda(DAOAbstractFactory metodo_persistencia)
 	{
@@ -29,5 +31,6 @@ public class Agenda
 	{
 		return this.persona.readAll();		
 	}
+	
 	
 }
