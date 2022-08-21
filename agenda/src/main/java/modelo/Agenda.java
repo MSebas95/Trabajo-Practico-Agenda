@@ -1,5 +1,6 @@
 package modelo;
 
+import java.util.HashMap;
 import java.util.List;
 
 import dto.LocalidadDTO;
@@ -15,16 +16,13 @@ import persistencia.dao.interfaz.ProvinciaDAO;
 import persistencia.dao.interfaz.TipoContactoDAO;
 
 
-
 public class Agenda 
 {
-	private PersonaDAO persona;
-	private TipoContactoDAO tipoContacto; 
-	//-----------------------------------------
+	private PersonaDAO persona;	
+	private TipoContactoDAO tipoContacto;
 	private LocalidadDAO localidad;
 	private ProvinciaDAO provincia;
 	private PaisDAO pais;
-	//-----------------------------------------
 	
 	public Agenda(DAOAbstractFactory metodo_persistencia)
 	{
@@ -50,23 +48,24 @@ public class Agenda
 		return this.persona.readAll();		
 	}
 	
-	public List<TipoContactoDTO> obtenerTiposDeContacto()
+	public HashMap<String, TipoContactoDTO> obtenerTipoContacto()
 	{
-		return this.tipoContacto.readAll();		
-	}
-	//----------------------------------------------------
-	public List<LocalidadDTO> obtenerLocalidades()
-	{
-		return this.localidad.readAll();		
-	}
-	public List<ProvinciaDTO> obtenerProvincias()
-	{
-		return this.provincia.readAll();		
-	}
-	public List<PaisDTO> obtenerPaises()
-	{
-		return this.pais.readAll();		
+		return this.tipoContacto.readAll();	
 	}
 	
+	public HashMap<String, LocalidadDTO> obtenerLocalidades()
+	{
+		return this.localidad.readAll();	
+	}
+	
+	public HashMap<String, ProvinciaDTO> obtenerProvincias()
+	{
+		return this.provincia.readAll();	
+	}
+	
+	public HashMap<String, PaisDTO> obtenerPaises()
+	{
+		return this.pais.readAll();	
+	}
 	
 }

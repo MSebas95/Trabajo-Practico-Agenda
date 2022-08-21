@@ -3,21 +3,20 @@ package persistencia.dao.mysql;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
-import dto.ProvinciaDTO;
+import java.util.HashMap;
+
 import persistencia.conexion.Conexion;
 import persistencia.dao.interfaz.ProvinciaDAO;
+import dto.ProvinciaDTO;
 
-public class ProvinciaDAOSQL implements ProvinciaDAO {
+public class ProvinciaDAOSQL implements ProvinciaDAO{
+	private static final String readall = "SELECT * FROM PROVINCIA";
 	
-	private static final String readall = "SELECT * FROM provincia";
-	
-	public List<ProvinciaDTO> readAll()
+	public HashMap<String, ProvinciaDTO> readAll() 
 	{
 		PreparedStatement statement;
 		ResultSet resultSet; //Guarda el resultado de la query
-		ArrayList<ProvinciaDTO> provincias = new ArrayList<ProvinciaDTO>();
+		HashMap<String, ProvinciaDTO> provinciaById = new HashMap<String, ProvinciaDTO>();
 		Conexion conexion = Conexion.getConexion();
 		try 
 		{
@@ -25,22 +24,24 @@ public class ProvinciaDAOSQL implements ProvinciaDAO {
 			resultSet = statement.executeQuery();
 			while(resultSet.next())
 			{
-				//TipoContactoDTO tipoC = getTipoContactoDTO(resultSet);
-				provincias.add(getProvinciaDTO(resultSet));
+				ProvinciaDTO provincia = getProvinciaDTO(resultSet);
+				provinciaById.put(provincia.getIdProvincia(), provincia);
 			}
 		} 
 		catch (SQLException e) 
 		{
 			e.printStackTrace();
 		}
-		return provincias;
+		return provinciaById;
 	}
-	
+		
 	private ProvinciaDTO getProvinciaDTO(ResultSet resultSet) throws SQLException
 	{
-		int id = resultSet.getInt("idProvincia");
-		String provincia = resultSet.getString("Provincia");
-		return new ProvinciaDTO(id, provincia);
+		String idPais = resultSet.getString("idPais");
+		String idProvincia = resultSet.getString("idProvincia");
+		String provinciaName = resultSet.getString("provincia");
+		ProvinciaDTO provincia = new ProvinciaDTO(idPais, idProvincia, provinciaName);
+		
+		return provincia; 
 	}
-
 }

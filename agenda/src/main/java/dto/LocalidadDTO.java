@@ -2,29 +2,42 @@ package dto;
 
 public class LocalidadDTO {
 	
-	private int idLocalidad;
+	private String idProvincia;
+	private String idLocalidad;
 	private String localidad;
 	
-	public LocalidadDTO(int idLocalidad, String localidad)
-	{
+	public LocalidadDTO(String idProvincia, String idLocalidad, String localidad) {
+		this.idProvincia = idProvincia;
 		this.idLocalidad = idLocalidad;
 		this.localidad = localidad;
 	}
 
-	public int getIdLocalidad() {
+	public String getIdLocalidad() {
 		return idLocalidad;
 	}
 
-	public void setIdLocalidad(int idLocalidad) {
+	public void setIdLocalidad(String idLocalidad) {
 		this.idLocalidad = idLocalidad;
+	}
+
+	public String getIdProvincia() {
+		return idProvincia;
+	}
+
+	public void setIdProvincia(String idProvincia) {
+		this.idProvincia = idProvincia;
 	}
 
 	public String getLocalidad() {
 		return localidad;
 	}
 
-	public void setlocalidad(String localidad) {
+	public void setLocalidad(String localidad) {
 		this.localidad = localidad;
 	}
-
+	
+	@Override
+	public String toString() {
+		return "Localidad [idProvincia=" + idProvincia + ", idLocalidad=" + idLocalidad + ", localidad=" + localidad + "]";
+	}
 }

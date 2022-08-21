@@ -2,20 +2,29 @@ package dto;
 
 public class ProvinciaDTO {
 	
-	private int idProvincia;
+	private String idPais;
+	private String idProvincia;
 	private String provincia;
 	
-	public ProvinciaDTO(int idProvincia, String provincia)
-	{
+	public ProvinciaDTO(String idPais, String idProvincia, String provincia) {
+		this.idPais = idPais;
 		this.idProvincia = idProvincia;
 		this.provincia = provincia;
 	}
 
-	public int getIdProvincia() {
+	public String getIdPais() {
+		return idPais;
+	}
+
+	public void setIdPais(String idPais) {
+		this.idPais = idPais;
+	}
+
+	public String getIdProvincia() {
 		return idProvincia;
 	}
 
-	public void setIdProvincia(int idProvincia) {
+	public void setIdProvincia(String idProvincia) {
 		this.idProvincia = idProvincia;
 	}
 
@@ -26,5 +35,6 @@ public class ProvinciaDTO {
 	public void setProvincia(String provincia) {
 		this.provincia = provincia;
 	}
+
 
 }

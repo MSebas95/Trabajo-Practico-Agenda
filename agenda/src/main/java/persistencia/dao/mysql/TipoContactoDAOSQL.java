@@ -3,24 +3,20 @@ package persistencia.dao.mysql;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
 
-import dto.PersonaDTO;
-import dto.TipoContactoDTO;
 import persistencia.conexion.Conexion;
-import persistencia.dao.interfaz.PersonaDAO;
 import persistencia.dao.interfaz.TipoContactoDAO;
+import dto.TipoContactoDTO;
 
-public class TipoContactoDAOSQL implements TipoContactoDAO {
-	
-	private static final String readall = "SELECT * FROM tipo_contacto";
-	
-	public List<TipoContactoDTO> readAll()
+public class TipoContactoDAOSQL implements TipoContactoDAO{
+	private static final String readall = "SELECT * FROM TIPO_CONTACTO";
+
+	public HashMap<String, TipoContactoDTO> readAll() 
 	{
 		PreparedStatement statement;
-		ResultSet resultSet; //Guarda el resultado de la query
-		ArrayList<TipoContactoDTO> tiposDeContacto = new ArrayList<TipoContactoDTO>();
+		ResultSet resultSet;
+		HashMap<String, TipoContactoDTO> tiposContactoByName = new HashMap<String, TipoContactoDTO>();
 		Conexion conexion = Conexion.getConexion();
 		try 
 		{
@@ -28,22 +24,24 @@ public class TipoContactoDAOSQL implements TipoContactoDAO {
 			resultSet = statement.executeQuery();
 			while(resultSet.next())
 			{
-				//TipoContactoDTO tipoC = getTipoContactoDTO(resultSet);
-				tiposDeContacto.add(getTipoContactoDTO(resultSet));
+				TipoContactoDTO tipoContacto = getTipoContactoDTO(resultSet);
+				tiposContactoByName.put(tipoContacto.getTipo(), tipoContacto);
 			}
 		} 
 		catch (SQLException e) 
 		{
 			e.printStackTrace();
 		}
-		return tiposDeContacto;
+		return tiposContactoByName;
 	}
-	
+		
 	private TipoContactoDTO getTipoContactoDTO(ResultSet resultSet) throws SQLException
 	{
 		int id = resultSet.getInt("idTipoContacto");
 		String tipo = resultSet.getString("Tipo");
-		return new TipoContactoDTO(id, tipo);
+		TipoContactoDTO tipoContacto = new TipoContactoDTO(id, tipo);
+				
+		return tipoContacto; 
 	}
 
 }

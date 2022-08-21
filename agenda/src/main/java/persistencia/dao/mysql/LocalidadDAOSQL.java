@@ -3,21 +3,20 @@ package persistencia.dao.mysql;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
-import dto.LocalidadDTO;
+import java.util.HashMap;
+
 import persistencia.conexion.Conexion;
 import persistencia.dao.interfaz.LocalidadDAO;
+import dto.LocalidadDTO;
 
-public class LocalidadDAOSQL implements LocalidadDAO {
+public class LocalidadDAOSQL implements LocalidadDAO{
+	private static final String readall = "SELECT * FROM LOCALIDAD";
 	
-	private static final String readall = "SELECT * FROM localidad";
-	
-	public List<LocalidadDTO> readAll()
+	public HashMap<String, LocalidadDTO> readAll() 
 	{
 		PreparedStatement statement;
 		ResultSet resultSet; //Guarda el resultado de la query
-		ArrayList<LocalidadDTO> localidades = new ArrayList<LocalidadDTO>();
+		HashMap<String, LocalidadDTO> localidadByName = new HashMap<String, LocalidadDTO>();
 		Conexion conexion = Conexion.getConexion();
 		try 
 		{
@@ -25,22 +24,25 @@ public class LocalidadDAOSQL implements LocalidadDAO {
 			resultSet = statement.executeQuery();
 			while(resultSet.next())
 			{
-				//TipoContactoDTO tipoC = getTipoContactoDTO(resultSet);
-				localidades.add(getLocalidadDTO(resultSet));
+				LocalidadDTO localidad = getLocalidadDTO(resultSet);
+				localidadByName.put(localidad.getLocalidad(), localidad);
 			}
 		} 
 		catch (SQLException e) 
 		{
 			e.printStackTrace();
 		}
-		return localidades;
+		return localidadByName;
 	}
-	
+		
 	private LocalidadDTO getLocalidadDTO(ResultSet resultSet) throws SQLException
 	{
-		int id = resultSet.getInt("idLocalidad");
-		String localidad = resultSet.getString("Localidad");
-		return new LocalidadDTO(id, localidad);
+		String idProvincia = resultSet.getString("idProvincia");
+		String idLocalidad = resultSet.getString("idLocalidad");
+		String localidadName = resultSet.getString("localidad");
+		LocalidadDTO localidad = new LocalidadDTO(idProvincia, idLocalidad, localidadName);
+		
+		return localidad; 
 	}
 
 }

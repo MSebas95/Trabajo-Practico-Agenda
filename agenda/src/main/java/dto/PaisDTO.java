@@ -2,20 +2,19 @@ package dto;
 
 public class PaisDTO {
 	
-	private int idPais;
+	private String idPais;
 	private String pais;
 	
-	public PaisDTO(int idPais, String pais)
-	{
+	public PaisDTO(String idPais, String pais) {
 		this.idPais = idPais;
 		this.pais = pais;
 	}
 
-	public int getIdPais() {
+	public String getIdPais() {
 		return idPais;
 	}
 
-	public void setIdPais(int idPais) {
+	public void setIdPais(String idPais) {
 		this.idPais = idPais;
 	}
 
@@ -23,7 +22,7 @@ public class PaisDTO {
 		return pais;
 	}
 
-	public void setProvincia(String pais) {
+	public void setPais(String pais) {
 		this.pais = pais;
 	}
 

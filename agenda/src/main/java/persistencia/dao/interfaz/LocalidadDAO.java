@@ -1,10 +1,10 @@
 package persistencia.dao.interfaz;
 
-import java.util.List;
+import java.util.HashMap;
 
 import dto.LocalidadDTO;
 
-public interface LocalidadDAO 
-{
-	public List<LocalidadDTO> readAll();
+public interface LocalidadDAO {
+
+	public HashMap<String, LocalidadDTO> readAll();
 }

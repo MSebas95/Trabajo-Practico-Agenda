@@ -1,10 +1,9 @@
 package persistencia.dao.interfaz;
 
-import java.util.List;
-
+import java.util.HashMap;
 import dto.ProvinciaDTO;
 
-public interface ProvinciaDAO 
-{
-	public List<ProvinciaDTO> readAll();
+public interface ProvinciaDAO {
+
+	public HashMap<String, ProvinciaDTO> readAll();
 }

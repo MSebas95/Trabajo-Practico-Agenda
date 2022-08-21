@@ -10,7 +10,6 @@ import persistencia.dao.interfaz.PersonaDAO;
 import persistencia.dao.interfaz.ProvinciaDAO;
 import persistencia.dao.interfaz.TipoContactoDAO;
 
-
 public class DAOSQLFactory implements DAOAbstractFactory 
 {
 	/* (non-Javadoc)
@@ -18,31 +17,27 @@ public class DAOSQLFactory implements DAOAbstractFactory
 	 */
 	public PersonaDAO createPersonaDAO() 
 	{
-				return new PersonaDAOSQL();
+		return new PersonaDAOSQL();
 	}
 	
-	public TipoContactoDAO crearTipoContactoDAO()      
-	{        
-				return new TipoContactoDAOSQL();     
-	}
-
-	@Override
-	public TipoContactoDAO createTipoContactoDAO() {
-		// TODO Auto-generated method stub
+	public TipoContactoDAO createTipoContactoDAO() 
+	{
 		return new TipoContactoDAOSQL();
 	}
-	//-------------------------------------------------
-	public LocalidadDAO createLocalidadDAO()      
-	{        
-				return new LocalidadDAOSQL();     
+	
+	public LocalidadDAO createLocalidadDAO() 
+	{
+		return new LocalidadDAOSQL();
 	}
-	public ProvinciaDAO createProvinciaDAO()      
-	{        
-				return new ProvinciaDAOSQL();     
+	
+	public ProvinciaDAO createProvinciaDAO() 
+	{
+		return new ProvinciaDAOSQL();
 	}
-	public PaisDAO createPaisDAO()      
-	{        
-				return new PaisDAOSQL();     
+	
+	public PaisDAO createPaisDAO() 
+	{
+		return new PaisDAOSQL();
 	}
 
 }

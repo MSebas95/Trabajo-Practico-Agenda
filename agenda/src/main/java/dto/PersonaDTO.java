@@ -10,10 +10,13 @@ public class PersonaDTO
 	private String piso;
 	private String depto;
 	private String email;
-	private String cumpleaños;
-	private String tipoContacto;
+	private String cumpleanios;
+	private int tipoContactoId;
+    private String tipoContacto;
+    private String idLocalidad;
+    private String Localidad;
 
-	public PersonaDTO(int idPersona, String nombre, String telefono, String calle, String altura, String piso, String depto, String email, String cumpleaños, String tipoContacto)
+	public PersonaDTO(int idPersona, String nombre, String telefono, String calle, String altura, String piso, String depto, String email, String cumpleanios, int tipoContactoId, String tipoContacto, String idLocalidad, String Localidad)
 	{
 		this.idPersona = idPersona;
 		this.nombre = nombre;
@@ -23,8 +26,19 @@ public class PersonaDTO
 		this.piso = piso;
 		this.depto = depto;
 		this.email = email;
-		this.cumpleaños = cumpleaños;
+		this.cumpleanios = cumpleanios;
+		this.tipoContactoId = tipoContactoId;
 		this.tipoContacto = tipoContacto;
+		this.idLocalidad = idLocalidad;
+		this.Localidad = Localidad;
+	}
+	
+	
+	public PersonaDTO(int idPersona, String nombre, String telefono)
+	{
+		this.idPersona = idPersona;
+		this.nombre = nombre;
+		this.telefono = telefono;
 	}
 	
 	public int getIdPersona() 
@@ -97,12 +111,20 @@ public class PersonaDTO
 		this.email = email;
 	}
 
-	public String getCumpleaños() {
-		return cumpleaños;
+	public String getCumpleanios() {
+		return cumpleanios;
 	}
 
-	public void setCumpleaños(String cumpleaños) {
-		this.cumpleaños = cumpleaños;
+	public void setCumpleanios(String cumpleaños) {
+		this.cumpleanios = cumpleaños;
+	}
+
+	public int getTipoContactoId() {
+		return tipoContactoId;
+	}
+
+	public void setTipoContactoId(int tipoContactoId) {
+		this.tipoContactoId = tipoContactoId;
 	}
 
 	public String getTipoContacto() {
@@ -112,6 +134,24 @@ public class PersonaDTO
 	public void setTipoContacto(String tipoContacto) {
 		this.tipoContacto = tipoContacto;
 	}
+
+	public String getIdLocalidad() {
+		return idLocalidad;
+	}
+
+	public void setIdLocalidad(String idLocalidad) {
+		this.idLocalidad = idLocalidad;
+	}
+
+	public String getLocalidad() {
+		return Localidad;
+	}
+
+	public void setLocalidad(String localidad) {
+		Localidad = localidad;
+	}
+
+
 	
 
 }

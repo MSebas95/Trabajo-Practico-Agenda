@@ -3,24 +3,20 @@ package persistencia.dao.mysql;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
 
-import dto.PaisDTO;
-import dto.ProvinciaDTO;
 import persistencia.conexion.Conexion;
 import persistencia.dao.interfaz.PaisDAO;
-import persistencia.dao.interfaz.ProvinciaDAO;
+import dto.PaisDTO;
 
-public class PaisDAOSQL implements PaisDAO {
+public class PaisDAOSQL implements PaisDAO{
+	private static final String readall = "SELECT * FROM PAIS";
 	
-	private static final String readall = "SELECT * FROM pais";
-	
-	public List<PaisDTO> readAll()
-	{
+	public HashMap<String, PaisDTO> readAll() 
+	{                     
 		PreparedStatement statement;
 		ResultSet resultSet; //Guarda el resultado de la query
-		ArrayList<PaisDTO> paises = new ArrayList<PaisDTO>();
+		HashMap<String, PaisDTO> paisById = new HashMap<String,PaisDTO>();
 		Conexion conexion = Conexion.getConexion();
 		try 
 		{
@@ -28,22 +24,23 @@ public class PaisDAOSQL implements PaisDAO {
 			resultSet = statement.executeQuery();
 			while(resultSet.next())
 			{
-				//TipoContactoDTO tipoC = getTipoContactoDTO(resultSet);
-				paises.add(getPaisDTO(resultSet));
+				PaisDTO pais = getPaisDTO(resultSet);
+				paisById.put(pais.getIdPais(), pais);
 			}
 		} 
 		catch (SQLException e) 
 		{
 			e.printStackTrace();
 		}
-		return paises;
+		return paisById;
 	}
-	
+		
 	private PaisDTO getPaisDTO(ResultSet resultSet) throws SQLException
 	{
-		int id = resultSet.getInt("idPais");
-		String pais = resultSet.getString("Pais");
-		return new PaisDTO(id, pais);
+		String idPais = resultSet.getString("idPais");
+		String paisName = resultSet.getString("pais");
+		PaisDTO pais = new PaisDTO(idPais, paisName);
+		
+		return pais; 
 	}
-
 }
