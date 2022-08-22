@@ -95,13 +95,17 @@ public class PersonaDTO
 		this.piso = piso;
 	}
 
+
+
 	public String getDepto() {
 		return depto;
 	}
 
+
 	public void setDepto(String depto) {
 		this.depto = depto;
 	}
+
 
 	public String getEmail() {
 		return email;

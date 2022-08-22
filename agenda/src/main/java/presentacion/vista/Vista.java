@@ -23,10 +23,11 @@ public class Vista
 	private JFrame frame;
 	private JTable tablaPersonas;
 	private JButton btnAgregar;
+	private JButton btnEditar;
 	private JButton btnBorrar;
 	private JButton btnReporte;
 	private DefaultTableModel modelPersonas;
-	private  String[] nombreColumnas = {"Nombre y apellido","Telefono", "Calle", "Localidad", "Altura", "Piso", "Email", "Cumpleaños", "Tipo de contacto"};
+	private  String[] nombreColumnas = {"Nombre y apellido","Telefono", "Calle", "Localidad", "Altura", "Piso", "Depto", "Email", "Cumpleaños", "Tipo de contacto"};
 
 	public Vista() 
 	{
@@ -65,7 +66,7 @@ public class Vista
 		btnAgregar.setBounds(10, 370, 89, 23);
 		panel.add(btnAgregar);
 		
-		JButton btnEditar = new JButton("Editar");
+		btnEditar = new JButton("Editar");
 		btnEditar.setBounds(109, 370, 89, 23);
 		panel.add(btnEditar);
 		
@@ -101,6 +102,11 @@ public class Vista
 	public JButton getBtnAgregar() 
 	{
 		return btnAgregar;
+	}
+	
+	public JButton getbtnEditar() 
+	{
+		return btnEditar;
 	}
 
 	public JButton getBtnBorrar() 
@@ -142,15 +148,20 @@ public class Vista
 			String localidad = p.getLocalidad();
 			String altura = p.getAltura();
 			String piso = p.getPiso();
+			String depto = p.getDepto();
 			String email = p.getEmail();
 			String cumpleanios = p.getCumpleanios();
 			String tipoContacto = p.getTipoContacto();
 
 			
-			Object[] fila = {nombre, tel, calle, localidad, altura, piso, email, cumpleanios, tipoContacto};
+			Object[] fila = {nombre, tel, calle, localidad, altura, piso, depto, email, cumpleanios, tipoContacto};
 			this.getModelPersonas().addRow(fila);
 		}
 		
+	}
+	
+	public void showError() {
+		JOptionPane.showMessageDialog(this.frame, "Debe seleccionar una fila a modificar");
 	}
 	
 

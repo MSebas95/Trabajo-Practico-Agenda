@@ -13,7 +13,8 @@ import dto.PersonaDTO;
 
 public class PersonaDAOSQL implements PersonaDAO
 {
-	private static final String insert = "INSERT INTO personas(idPersona, nombre, telefono, idTipoContacto, idLocalidad, Calle, altura, piso, email, cumpleaños) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+	private static final String insert = "INSERT INTO personas(nombre, telefono, idTipoContacto, idLocalidad, Calle, altura, piso , depto, email, cumpleaños) VALUES( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+	private static final String edit = "UPDATE PERSONAS SET Nombre = ?, Telefono = ?, idTipoContacto = ?, idLocalidad = ?, Calle = ?, altura = ?, piso = ?, depto = ?, email = ?, cumpleaños = ? WHERE idPersona = ?";
 	private static final String delete = "DELETE FROM personas WHERE idPersona = ?";
 	private static final String readall = "SELECT * FROM Personas p INNER JOIN TIPO_CONTACTO t ON p.idTipoContacto = t.idTipoContacto INNER JOIN LOCALIDAD l ON p.idLocalidad = l.idLocalidad";
 	public boolean insert(PersonaDTO persona)
@@ -25,14 +26,14 @@ public class PersonaDAOSQL implements PersonaDAO
 		try
 		{
 			statement = conexion.prepareStatement(insert);
-			statement.setInt(1, persona.getIdPersona());
-			statement.setString(2, persona.getNombre());
-			statement.setString(3, persona.getTelefono());
-			statement.setInt(4, persona.getTipoContactoId());
-			statement.setString(5, persona.getIdLocalidad());
-			statement.setString(6, persona.getCalle());
-			statement.setString(7, persona.getAltura());
-			statement.setString(8, persona.getPiso());
+			statement.setString(1, persona.getNombre());
+			statement.setString(2, persona.getTelefono());
+			statement.setInt(3, persona.getTipoContactoId());
+			statement.setString(4, persona.getIdLocalidad());
+			statement.setString(5, persona.getCalle());
+			statement.setString(6, persona.getAltura());
+			statement.setString(7, persona.getPiso());
+			statement.setString(8, persona.getDepto());
 			statement.setString(9, persona.getEmail());
 			statement.setString(10, persona.getCumpleanios());
 
@@ -55,6 +56,44 @@ public class PersonaDAOSQL implements PersonaDAO
 		}
 		
 		return isInsertExitoso;
+	}
+	
+	public boolean edit(PersonaDTO persona_a_editar) {
+		PreparedStatement statement;
+		Connection conexion = Conexion.getConexion().getSQLConexion();
+		boolean isEditExitoso = false;
+		try 
+		{
+			statement = conexion.prepareStatement(edit);
+			
+			statement.setString(1, persona_a_editar.getNombre());
+			statement.setString(2, persona_a_editar.getTelefono());
+			statement.setInt(3, persona_a_editar.getTipoContactoId());
+			statement.setString(4, persona_a_editar.getIdLocalidad());
+			statement.setString(5, persona_a_editar.getCalle());
+			statement.setString(6, persona_a_editar.getAltura());
+			statement.setString(7, persona_a_editar.getPiso());
+			statement.setString(8, persona_a_editar.getDepto());
+			statement.setString(9, persona_a_editar.getEmail());
+			statement.setString(10, persona_a_editar.getCumpleanios());
+			statement.setInt(11, persona_a_editar.getIdPersona());
+			
+			if(statement.executeUpdate() > 0)
+			{
+				conexion.commit();
+				isEditExitoso = true;
+			}
+		} 
+		catch (SQLException e) 
+		{
+			e.printStackTrace();
+			try {
+				conexion.rollback();
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
+		}
+		return isEditExitoso;
 	}
 	
 	public boolean delete(PersonaDTO persona_a_eliminar)
@@ -111,6 +150,7 @@ public class PersonaDAOSQL implements PersonaDAO
 		persona.setCalle(resultSet.getString("calle"));
 		persona.setAltura(resultSet.getString("altura"));
 		persona.setPiso(resultSet.getString("piso"));
+		persona.setDepto(resultSet.getString("depto"));
 		persona.setEmail(resultSet.getString("email"));
 		persona.setIdLocalidad(resultSet.getString("idLocalidad"));
 		persona.setTipoContactoId(resultSet.getInt("idTipoContacto"));
