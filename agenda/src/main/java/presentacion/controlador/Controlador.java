@@ -9,9 +9,13 @@ import java.util.List;
 
 import modelo.Agenda;
 import presentacion.reportes.ReporteAgenda;
+import presentacion.reportes.ReporteLugares;
+import presentacion.reportes.ReporteMusical;
 import presentacion.vista.VentanaPersona;
 import presentacion.vista.Vista;
+import dto.GrupoMusicalDTO;
 import dto.LocalidadDTO;
+import dto.LugarTuristicoDTO;
 import dto.PaisDTO;
 import dto.PersonaDTO;
 import dto.ProvinciaDTO;
@@ -22,6 +26,8 @@ public class Controlador implements ActionListener
 		private Vista vista;
 		private List<PersonaDTO> personasEnTabla;
 		private HashMap<String, TipoContactoDTO> tipoDeContactoByName;
+		private HashMap<String, GrupoMusicalDTO> grupoMusicalByName;
+		private HashMap<String, LugarTuristicoDTO> lugarTuristicoByName;
 		private HashMap<String, LocalidadDTO> localidadByName;
 		private HashMap<String, ProvinciaDTO> provinciaById;
 		private HashMap<String, PaisDTO> paisById;
@@ -36,8 +42,9 @@ public class Controlador implements ActionListener
 			this.vista.getbtnEditar().addActionListener(s->editarPersona(s));
 			this.vista.getBtnBorrar().addActionListener(s->borrarPersona(s));
 			this.vista.getBtnReporte().addActionListener(r->mostrarReporte(r));
+			this.vista.getBtnReporteLugares().addActionListener(r->mostrarReporteLugares(r));
 			this.agenda = agenda;
-			this.ventanaPersona = VentanaPersona.getInstance(this.agenda.obtenerTipoContacto());		
+			this.ventanaPersona = VentanaPersona.getInstance(this.agenda.obtenerTipoContacto(), this.agenda.obtenerLugarTuristico(), this.agenda.obtenerGrupoMusical());		
 			this.ventanaPersona.getBtnAgregarPersona().addActionListener(p->guardarPersona(p));
 		}
 		
@@ -56,6 +63,8 @@ public class Controlador implements ActionListener
 			String depto = this.ventanaPersona.getDepto().getText();
 			String email = this.ventanaPersona.getEmail().getText();
 			String cumpleaños = ventanaPersona.getTxtCumpleaños().getText();
+			String lugarTuristico = ventanaPersona.getPlaceTypeName();
+			String grupoMusical = ventanaPersona.getBandTypeName();
 			PersonaDTO nuevaPersona = new PersonaDTO(0, nombre, tel);
 			nuevaPersona.setTipoContactoId(tipoDeContactoByName.get(tipoContacto).getIdTipoContacto());
 			nuevaPersona.setLocalidad(localidadByName.get(localidadPersona).getLocalidad());
@@ -66,6 +75,8 @@ public class Controlador implements ActionListener
 			nuevaPersona.setDepto(depto);
 			nuevaPersona.setEmail(email);
 			nuevaPersona.setCumpleanios(cumpleaños);
+			nuevaPersona.setLugarTuristicoId(lugarTuristicoByName.get(lugarTuristico).getIdLugarTuristico());
+			nuevaPersona.setGrupoMusicalId(grupoMusicalByName.get(grupoMusical).getIdGrupoMusical());
 			this.agenda.agregarPersona(nuevaPersona);
 			this.refrescarTabla();
 			this.ventanaPersona.cerrar();
@@ -77,11 +88,21 @@ public class Controlador implements ActionListener
 			reporte.mostrar();	
 		}
 		
+		private void mostrarReporteLugares(ActionEvent r) {
+			ReporteLugares reporte = new ReporteLugares(agenda.obtenerPersonas());
+			reporte.mostrar();	
+		}
+		
+		private void mostrarReporteMusical(ActionEvent r) {
+			ReporteMusical reporte = new ReporteMusical(agenda.obtenerPersonas());
+			reporte.mostrar();	
+		}
+		
 		public void editarPersona(ActionEvent s)
 		{
 			if (this.vista.getTablaPersonas().getSelectedRow() >= 0 ) {
 				PersonaDTO persona = this.personasEnTabla.get(this.vista.getTablaPersonas().getSelectedRow());
-				this.ventanaPersonaEditar = VentanaPersona.getInstance(this.agenda.obtenerTipoContacto(),persona);		
+				this.ventanaPersonaEditar = VentanaPersona.getInstance(this.agenda.obtenerTipoContacto(), this.agenda.obtenerLugarTuristico(), this.agenda.obtenerGrupoMusical() ,persona);		
 				this.ventanaPersonaEditar.getBtnEditarPersona().addActionListener(e->editarPersona(e, persona.getIdPersona()));
 				
 				this.ventanaPersonaEditar.mostrarVentana();
@@ -101,6 +122,7 @@ public class Controlador implements ActionListener
 			String depto = this.ventanaPersonaEditar.getDepto().getText();
 			String email = this.ventanaPersonaEditar.getEmail().getText();
 			String cumpleaños = this.ventanaPersonaEditar.getTxtCumpleaños().getText();
+			//String lugarTuristico = this.ventanaPersonaEditar
 			PersonaDTO nuevaPersona = new PersonaDTO(0, nombre, tel);
 			nuevaPersona.setTipoContactoId(tipoDeContactoByName.get(tipoContacto).getIdTipoContacto());
 			nuevaPersona.setLocalidad(localidadByName.get(localidadPersona).getLocalidad());
@@ -138,6 +160,7 @@ public class Controlador implements ActionListener
 		{
 			this.personasEnTabla = agenda.obtenerPersonas();
 			this.tipoDeContactoByName = agenda.obtenerTipoContacto();
+			this.lugarTuristicoByName = agenda.obtenerLugarTuristico();
 			this.localidadByName = agenda.obtenerLocalidades();
 			this.provinciaById = agenda.obtenerProvincias();
 			this.paisById = agenda.obtenerPaises();

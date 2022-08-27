@@ -15,8 +15,12 @@ public class PersonaDTO
     private String tipoContacto;
     private String idLocalidad;
     private String Localidad;
+    private int lugarId;
+    private String lugarPreferido;
+    private int grupoId;
+    private String grupoPreferido;
 
-	public PersonaDTO(int idPersona, String nombre, String telefono, String calle, String altura, String piso, String depto, String email, String cumpleanios, int tipoContactoId, String tipoContacto, String idLocalidad, String Localidad)
+	public PersonaDTO(int idPersona, String nombre, String telefono, String calle, String altura, String piso, String depto, String email, String cumpleanios, int tipoContactoId, String tipoContacto, String idLocalidad, String Localidad, int lugarId, String lugarPreferido, int grupoId, String grupoPreferido)
 	{
 		this.idPersona = idPersona;
 		this.nombre = nombre;
@@ -31,43 +35,40 @@ public class PersonaDTO
 		this.tipoContacto = tipoContacto;
 		this.idLocalidad = idLocalidad;
 		this.Localidad = Localidad;
+		this.lugarId = lugarId;
+		this.grupoId = grupoId;
+		this.lugarPreferido = lugarPreferido;
+		this.grupoPreferido = grupoPreferido;
 	}
-	
 	
 	public PersonaDTO(int idPersona, String nombre, String telefono)
-	{
-		this.idPersona = idPersona;
-		this.nombre = nombre;
-		this.telefono = telefono;
-	}
-	
-	public int getIdPersona() 
-	{
-		return this.idPersona;
+    {
+        this.idPersona = idPersona;
+        this.nombre = nombre;
+        this.telefono = telefono;
+    }
+
+	public int getIdPersona() {
+		return idPersona;
 	}
 
-	public void setIdPersona(int idPersona) 
-	{
+	public void setIdPersona(int idPersona) {
 		this.idPersona = idPersona;
 	}
 
-	public String getNombre() 
-	{
-		return this.nombre;
+	public String getNombre() {
+		return nombre;
 	}
 
-	public void setNombre(String nombre) 
-	{
+	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
 
-	public String getTelefono() 
-	{
-		return this.telefono;
+	public String getTelefono() {
+		return telefono;
 	}
 
-	public void setTelefono(String telefono) 
-	{
+	public void setTelefono(String telefono) {
 		this.telefono = telefono;
 	}
 
@@ -95,17 +96,13 @@ public class PersonaDTO
 		this.piso = piso;
 	}
 
-
-
 	public String getDepto() {
 		return depto;
 	}
 
-
 	public void setDepto(String depto) {
 		this.depto = depto;
 	}
-
 
 	public String getEmail() {
 		return email;
@@ -119,8 +116,8 @@ public class PersonaDTO
 		return cumpleanios;
 	}
 
-	public void setCumpleanios(String cumpleaños) {
-		this.cumpleanios = cumpleaños;
+	public void setCumpleanios(String cumpleanios) {
+		this.cumpleanios = cumpleanios;
 	}
 
 	public int getTipoContactoId() {
@@ -129,6 +126,14 @@ public class PersonaDTO
 
 	public void setTipoContactoId(int tipoContactoId) {
 		this.tipoContactoId = tipoContactoId;
+	}
+	
+	public void setLugarTuristicoId(int lugarId) {
+		this.lugarId = lugarId;
+	}
+	
+	public void setGrupoMusicalId(int grupoId) {
+		this.grupoId = grupoId;
 	}
 
 	public String getTipoContacto() {
@@ -154,6 +159,41 @@ public class PersonaDTO
 	public void setLocalidad(String localidad) {
 		Localidad = localidad;
 	}
+
+	public int getLugarId() {
+		return lugarId;
+	}
+
+	public void setLugarId(int lugarId) {
+		this.lugarId = lugarId;
+	}
+
+	public String getLugarPreferido() {
+		return lugarPreferido;
+	}
+
+	public void setLugarPreferido(String lugarPreferido) {
+		this.lugarPreferido = lugarPreferido;
+	}
+
+	public int getGrupoId() {
+		return grupoId;
+	}
+
+	public void setGrupoId(int grupoId) {
+		this.grupoId = grupoId;
+	}
+
+	public String getGrupoPreferido() {
+		return grupoPreferido;
+	}
+
+	public void setGrupoPreferido(String grupoPreferido) {
+		this.grupoPreferido = grupoPreferido;
+	}
+	
+	
+	
 
 
 	

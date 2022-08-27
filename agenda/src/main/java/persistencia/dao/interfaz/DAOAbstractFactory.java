@@ -12,5 +12,9 @@ public interface DAOAbstractFactory
 	public ProvinciaDAO createProvinciaDAO();
 	
 	public PaisDAO createPaisDAO();
+	
+	public LugarTuristicoDAO createLugarTuristicoDAO();
+	
+	public GrupoMusicalDAO createGrupoMusicalDAO();
 }
 

@@ -18,7 +18,9 @@ import javax.swing.border.EmptyBorder;
 
 import dto.TipoContactoDTO;
 import dto.UbicacionDTO;
+import dto.GrupoMusicalDTO;
 import dto.LocalidadDTO;
+import dto.LugarTuristicoDTO;
 import dto.PaisDTO;
 import dto.PersonaDTO;
 import dto.ProvinciaDTO;
@@ -39,39 +41,48 @@ public class VentanaPersona extends JFrame
 	private JButton btnAgregarPersona;
 	private JButton btnEditarPersona;
 	private JComboBox tipoContactoComboBox;
+	private JComboBox lugarTuristicoComboBox;
+	private JComboBox grupoMusicalComboBox;
 	private static VentanaPersona INSTANCE;
 	private static VentanaPersona INSTANCE_EDITAR;
 	private JComboBox pais;
 	private JComboBox provincia;
 	private JComboBox localidad;
 	private HashMap<String, TipoContactoDTO> tipoContactoByName;
+	private HashMap<String, LugarTuristicoDTO> lugarTuristicoByName;
+	private HashMap<String, GrupoMusicalDTO> grupoMusicalByName;
 	List<LocalidadDTO> localidades;
 	UbicacionDTO ubicacion = UbicacionDTO.constructor();
 
 
 	
-	public static VentanaPersona getInstance(HashMap<String, TipoContactoDTO> tipoContactoByName)
+	public static VentanaPersona getInstance(HashMap<String, TipoContactoDTO> tipoContactoByName, HashMap<String, LugarTuristicoDTO> lugarTuristicoByName,  HashMap<String, GrupoMusicalDTO> grupoMusicalByName)
 	{
 		if(INSTANCE == null)
 		{
-			INSTANCE = new VentanaPersona(tipoContactoByName); 	
-			return new VentanaPersona(tipoContactoByName);
+			INSTANCE = new VentanaPersona(tipoContactoByName, lugarTuristicoByName, grupoMusicalByName); 	
+			return new VentanaPersona(tipoContactoByName, lugarTuristicoByName, grupoMusicalByName);
 		}
 		else
 			return INSTANCE;
 	}
 	
-	public static VentanaPersona getInstance(HashMap<String, TipoContactoDTO> tipoContactoByName, PersonaDTO persona)
+	public static VentanaPersona getInstance(HashMap<String, TipoContactoDTO> tipoContactoByName,HashMap<String, LugarTuristicoDTO> lugarTuristicoByName, HashMap<String, GrupoMusicalDTO> grupoMusicalByName , PersonaDTO persona)
 	{
-		INSTANCE_EDITAR = new VentanaPersona(tipoContactoByName, persona); 	
-		return new VentanaPersona(tipoContactoByName, persona);
+		INSTANCE_EDITAR = new VentanaPersona(tipoContactoByName ,lugarTuristicoByName, grupoMusicalByName , persona); 	
+		return new VentanaPersona(tipoContactoByName ,lugarTuristicoByName, grupoMusicalByName , persona);
 	}
 
-	private VentanaPersona(HashMap<String, TipoContactoDTO> tipoContactoByName) 
+	/**
+	 * @wbp.parser.constructor
+	 */
+	private VentanaPersona(HashMap<String, TipoContactoDTO> tipoContactoByName, HashMap<String, LugarTuristicoDTO> lugarTuristicoByName, HashMap<String, GrupoMusicalDTO> grupoMusicalByName) 
 	{
 		super();
 		
 		this.tipoContactoByName = tipoContactoByName;
+		this.lugarTuristicoByName = lugarTuristicoByName;
+		this.grupoMusicalByName = grupoMusicalByName;
 		
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 570, 700);
@@ -125,7 +136,24 @@ public class VentanaPersona extends JFrame
 		this.tipoContactoComboBox  = new JComboBox(tipoContacto);
 		tipoContactoComboBox.setBounds(133, 330, 113, 23);
 		panel.add(tipoContactoComboBox);
-	
+		
+		String[] lugares = this.lugarTuristicoByName.keySet().toArray(new String[this.lugarTuristicoByName.keySet().size()]);
+		JLabel lblLugares = new JLabel("Lugar preferido");
+		lblTipoContacto.setBounds(10,490,113,14);
+		panel.add(lblLugares);
+		
+		this.lugarTuristicoComboBox  = new JComboBox(lugares);
+		lugarTuristicoComboBox.setBounds(133, 490, 113, 23);
+		panel.add(lugarTuristicoComboBox);
+		
+		String[] grupos = this.grupoMusicalByName.keySet().toArray(new String[this.grupoMusicalByName.keySet().size()]);
+		JLabel lblGrupos = new JLabel("Grupo musical");
+		lblGrupos.setBounds(10,530,113,14);
+		panel.add(lblGrupos);
+		
+		this.grupoMusicalComboBox  = new JComboBox(grupos);
+		lugarTuristicoComboBox.setBounds(133, 530, 113, 23);
+		panel.add(grupoMusicalComboBox);
 		
 		
 		txtNombre = new JTextField();
@@ -169,7 +197,6 @@ public class VentanaPersona extends JFrame
 		depto.setBounds(133, 290, 64, 20);
 		panel.add(depto);
 		
-		
 	
 		btnAgregarPersona = new JButton("Agregar");
 		btnAgregarPersona.setBounds(322, 520, 89, 23);
@@ -210,7 +237,7 @@ public class VentanaPersona extends JFrame
 		this.setVisible(false);
 	}
 	
-	private VentanaPersona(HashMap<String, TipoContactoDTO> tipoContactoByName, PersonaDTO persona){
+	private VentanaPersona(HashMap<String, TipoContactoDTO> tipoContactoByName,HashMap<String, LugarTuristicoDTO> lugarTuristicoByName, HashMap<String, GrupoMusicalDTO> grupoMusicalByName , PersonaDTO persona){
 		super();
 		
 		this.tipoContactoByName = tipoContactoByName;
@@ -259,7 +286,7 @@ public class VentanaPersona extends JFrame
 		JLabel lblDepto = new JLabel("Depto");
 		lblDepto.setBounds(10, 290, 113, 14);
 		panel.add(lblDepto);
-		
+		//-----------------------------------
 		String[] tipoContacto = this.tipoContactoByName.keySet().toArray(new String[this.tipoContactoByName.keySet().size()]);
 		JLabel lblTipoContacto = new JLabel("Tipo de contacto");
 		lblTipoContacto.setBounds(10,330,113,14);
@@ -269,7 +296,24 @@ public class VentanaPersona extends JFrame
 		tipoContactoComboBox.setBounds(133, 330, 113, 23);
 		panel.add(tipoContactoComboBox);
 		
+		String[] lugares = this.lugarTuristicoByName.keySet().toArray(new String[this.lugarTuristicoByName.keySet().size()]);
+		JLabel lblLugares = new JLabel("Lugar preferido");
+		lblLugares.setBounds(10,490,113,14);
+		panel.add(lblLugares);
 		
+		this.lugarTuristicoComboBox  = new JComboBox(lugares);
+		lugarTuristicoComboBox.setBounds(133, 490, 113, 23);
+		panel.add(lugarTuristicoComboBox);
+		
+		String[] grupos = this.grupoMusicalByName.keySet().toArray(new String[this.grupoMusicalByName.keySet().size()]);
+		JLabel lblGrupos = new JLabel("Grupo musical");
+		lblGrupos.setBounds(10,530,113,14);
+		panel.add(lblGrupos);
+		
+		this.grupoMusicalComboBox  = new JComboBox(grupos);
+		grupoMusicalComboBox.setBounds(133, 530, 113, 23);
+		panel.add(grupoMusicalComboBox);
+		//-----------------------------------
 		txtNombre = new JTextField();
 		txtNombre.setBounds(133, 10, 164, 20);
 		txtNombre.setText(persona.getNombre());
@@ -388,6 +432,16 @@ public class VentanaPersona extends JFrame
 		return tipoContactoComboBox.getSelectedItem().toString();
 
 	}
+	
+	public String getPlaceTypeName() {
+		return lugarTuristicoComboBox.getSelectedItem().toString();
+
+	}
+	
+	public String getBandTypeName() {
+		return grupoMusicalComboBox.getSelectedItem().toString();
+
+	}
 
 	public JButton getBtnAgregarPersona() 
 	{
@@ -415,6 +469,14 @@ public class VentanaPersona extends JFrame
 	
 	public void llenarTipoContacto(HashMap<String, TipoContactoDTO> tipoContactoByName) {
 		this.tipoContactoByName = tipoContactoByName;
+	}
+	
+	public void llenarLugarTuristico(HashMap<String, LugarTuristicoDTO> lugarTuristicoByName) {
+		this.lugarTuristicoByName = lugarTuristicoByName;
+	}
+	
+	public void llenarGrupoMusical(HashMap<String, GrupoMusicalDTO> grupoMusicalByName) {
+		this.grupoMusicalByName = grupoMusicalByName;
 	}
 	
 	
@@ -512,6 +574,7 @@ public class VentanaPersona extends JFrame
 	public void setLocalidad(JComboBox localidad) {
 		this.localidad = localidad;
 	}
+	
 
 	public void setTxtNombre(JTextField txtNombre) {
 		this.txtNombre = txtNombre;

@@ -26,8 +26,9 @@ public class Vista
 	private JButton btnEditar;
 	private JButton btnBorrar;
 	private JButton btnReporte;
+	private JButton btnReporteLugares;
 	private DefaultTableModel modelPersonas;
-	private  String[] nombreColumnas = {"Nombre y apellido","Telefono", "Calle", "Localidad", "Altura", "Piso", "Depto", "Email", "Cumpleaños", "Tipo de contacto"};
+	private  String[] nombreColumnas = {"Nombre y apellido","Telefono", "Calle", "Localidad", "Altura", "Piso", "Depto", "Email", "Cumpleaños", "Tipo de contacto", "Lugar preferido", "Grupo preferido"};
 
 	public Vista() 
 	{
@@ -77,6 +78,10 @@ public class Vista
 		btnReporte = new JButton("Reporte");
 		btnReporte.setBounds(307, 370, 89, 23);
 		panel.add(btnReporte);
+		
+		btnReporteLugares = new JButton("Lugares");
+		btnReporteLugares.setBounds(406, 370, 89, 23);
+		panel.add(btnReporteLugares);
 	}
 	
 	public void show()
@@ -119,6 +124,11 @@ public class Vista
 		return btnReporte;
 	}
 	
+	public JButton getBtnReporteLugares() 
+	{
+		return btnReporteLugares;
+	}
+	
 	public DefaultTableModel getModelPersonas() 
 	{
 		return modelPersonas;
@@ -152,9 +162,11 @@ public class Vista
 			String email = p.getEmail();
 			String cumpleanios = p.getCumpleanios();
 			String tipoContacto = p.getTipoContacto();
+			String lugarTuristico = p.getLugarPreferido();
+			String grupoMusical = p.getGrupoPreferido();
 
 			
-			Object[] fila = {nombre, tel, calle, localidad, altura, piso, depto, email, cumpleanios, tipoContacto};
+			Object[] fila = {nombre, tel, calle, localidad, altura, piso, depto, email, cumpleanios, tipoContacto, lugarTuristico, grupoMusical};
 			this.getModelPersonas().addRow(fila);
 		}
 		
