@@ -44,33 +44,82 @@ ON p.idLugarTuristico = l.idLugarTuristico
 			<frame>
 				<reportElement x="0" y="0" width="550" height="40" uuid="fbf866cd-64dc-4043-b98c-ed8d9f31d19c"/>
 				<staticText>
-					<reportElement x="0" y="10" width="170" height="30" uuid="df09700e-f0a8-43aa-a9d6-1430d1a7476d"/>
+					<reportElement x="0" y="10" width="240" height="30" uuid="df09700e-f0a8-43aa-a9d6-1430d1a7476d"/>
 					<textElement>
 						<font size="18"/>
 					</textElement>
-					<text><![CDATA[Reporte de personas]]></text>
+					<text><![CDATA[Reporte: Lugares Turisticos]]></text>
 				</staticText>
+				<staticText>
+					<reportElement x="390" y="2" width="102" height="20" uuid="469b99eb-649f-4d15-965f-f8bf5dad4462"/>
+					<text><![CDATA[Reporte generado el:]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="489" y="2" width="56" height="20" uuid="681f2d61-3b47-475b-a497-c9d396ae9f14"/>
+					<textFieldExpression><![CDATA[$P{Fecha}]]></textFieldExpression>
+				</textField>
 			</frame>
 		</band>
 	</title>
 	<pageHeader>
-		<band height="36" splitType="Stretch"/>
+		<band height="36" splitType="Stretch">
+			<staticText>
+				<reportElement x="3" y="2" width="506" height="20" uuid="aff260ab-3f6e-4fa7-88c9-109eb2c7727f"/>
+				<text><![CDATA[Reporte sobre los lugares Turisticos predilectos por los contactos de la agenda]]></text>
+			</staticText>
+		</band>
 	</pageHeader>
 	<columnHeader>
 		<band height="31" splitType="Stretch">
 			<frame>
 				<reportElement x="2" y="6" width="550" height="23" uuid="23209a62-cc9d-4b81-8e93-aa9cc3a92b36"/>
+				<staticText>
+					<reportElement x="20" y="1" width="172" height="21" uuid="775c3b1c-151a-4b72-8d7c-04d30213087d">
+						<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					</reportElement>
+					<textElement textAlignment="Left">
+						<font size="14"/>
+					</textElement>
+					<text><![CDATA[Lugar Turistico]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="310" y="1" width="160" height="20" uuid="fb2916a7-c0f5-4f68-a320-78243629f0e8">
+						<property name="com.jaspersoft.studio.unit.y" value="px"/>
+						<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					</reportElement>
+					<textElement textAlignment="Left">
+						<font size="14"/>
+					</textElement>
+					<text><![CDATA[Tendencia]]></text>
+				</staticText>
 			</frame>
 		</band>
 	</columnHeader>
 	<detail>
-		<band height="21" splitType="Stretch"/>
+		<band height="21" splitType="Stretch">
+			<textField>
+				<reportElement x="30" y="0" width="225" height="18" uuid="fcd1a4c6-3e2b-4712-a8b1-b40a94a6d685"/>
+				<textElement textAlignment="Left"/>
+				<textFieldExpression><![CDATA[$F{lugar}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="320" y="-1" width="160" height="20" uuid="68b61f39-7ddb-42b1-b200-dfea2e7d4b5c">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Left"/>
+				<textFieldExpression><![CDATA[$F{cantLugar}]]></textFieldExpression>
+			</textField>
+		</band>
 	</detail>
 	<columnFooter>
-		<band height="329" splitType="Stretch">
+		<band height="42" splitType="Stretch"/>
+	</columnFooter>
+	<summary>
+		<band height="298">
 			<barChart>
 				<chart evaluationTime="Report">
-					<reportElement x="150" y="40" width="200" height="200" uuid="e686070f-245f-4a6f-8d8b-ec686caa6fe4"/>
+					<reportElement x="-8" y="50" width="560" height="220" uuid="f14462be-1089-42b2-9094-2f1349caa89e"/>
 					<chartTitle/>
 					<chartSubtitle/>
 					<chartLegend/>
@@ -78,7 +127,7 @@ ON p.idLugarTuristico = l.idLugarTuristico
 				<categoryDataset>
 					<dataset resetType="Report"/>
 					<categorySeries>
-						<seriesExpression><![CDATA["SERIES 1"]]></seriesExpression>
+						<seriesExpression><![CDATA[$F{lugar}]]></seriesExpression>
 						<categoryExpression><![CDATA[$F{lugar}]]></categoryExpression>
 						<valueExpression><![CDATA[$F{cantLugar}]]></valueExpression>
 					</categorySeries>
@@ -94,6 +143,13 @@ ON p.idLugarTuristico = l.idLugarTuristico
 					</valueAxisFormat>
 				</barPlot>
 			</barChart>
+			<staticText>
+				<reportElement x="10" y="10" width="250" height="30" uuid="14c6bc34-c748-4b18-9107-23de06d06567"/>
+				<textElement>
+					<font size="18"/>
+				</textElement>
+				<text><![CDATA[Grafico Grupos Musicales Preferidos]]></text>
+			</staticText>
 		</band>
-	</columnFooter>
+	</summary>
 </jasperReport>

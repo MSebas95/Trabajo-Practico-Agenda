@@ -75,7 +75,7 @@ public class Vista
 		btnBorrar.setBounds(208, 370, 89, 23);
 		panel.add(btnBorrar);
 		
-		btnReporte = new JButton("Reporte");
+		btnReporte = new JButton("Musica");
 		btnReporte.setBounds(307, 370, 89, 23);
 		panel.add(btnReporte);
 		
