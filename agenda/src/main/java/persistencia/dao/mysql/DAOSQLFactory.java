@@ -11,6 +11,7 @@ import persistencia.dao.interfaz.PaisDAO;
 import persistencia.dao.interfaz.PersonaDAO;
 import persistencia.dao.interfaz.ProvinciaDAO;
 import persistencia.dao.interfaz.TipoContactoDAO;
+import persistencia.dao.interfaz.UbicacionDAO;
 
 public class DAOSQLFactory implements DAOAbstractFactory 
 {
@@ -50,6 +51,11 @@ public class DAOSQLFactory implements DAOAbstractFactory
 	public GrupoMusicalDAO createGrupoMusicalDAO() 
 	{
 		return new GrupoMusicalDAOSQL();
+	}
+	
+	public UbicacionDAO createUbicacionDAO() 
+	{
+		return new UbicacionDAOSQL();
 	}
 
 }

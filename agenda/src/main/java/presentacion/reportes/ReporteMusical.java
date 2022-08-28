@@ -16,7 +16,8 @@ import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import net.sf.jasperreports.engine.util.JRLoader;
 import net.sf.jasperreports.view.JasperViewer;
-import dto.PersonaDTO;
+import dto.GrupoMusicalDTO;
+
 
 public class ReporteMusical
 {
@@ -25,7 +26,7 @@ public class ReporteMusical
 	private JasperPrint	reporteLleno;
 	private Logger log = Logger.getLogger(ReporteLugares.class);
 	//Recibe la lista de personas para armar el reporte
-    public ReporteMusical(List<PersonaDTO> personas)
+    public ReporteMusical(List<GrupoMusicalDTO> grupoMusical)
     {
     	//Hardcodeado
 		Map<String, Object> parametersMap = new HashMap<String, Object>();
@@ -33,7 +34,7 @@ public class ReporteMusical
     	try		{
 			this.reporte = (JasperReport) JRLoader.loadObjectFromFile( "reportes" + File.separator + "ReporteMusical.jasper" );
 			this.reporteLleno = JasperFillManager.fillReport(this.reporte, parametersMap, 
-					new JRBeanCollectionDataSource(personas));
+					new JRBeanCollectionDataSource(grupoMusical));
     		log.info("Se cargó correctamente el reporte");
 		}
 		catch( JRException ex ) 

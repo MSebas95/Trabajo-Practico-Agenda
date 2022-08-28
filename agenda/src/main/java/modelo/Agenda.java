@@ -10,6 +10,7 @@ import dto.PaisDTO;
 import dto.PersonaDTO;
 import dto.ProvinciaDTO;
 import dto.TipoContactoDTO;
+import dto.UbicacionDTO;
 import persistencia.dao.interfaz.DAOAbstractFactory;
 import persistencia.dao.interfaz.GrupoMusicalDAO;
 import persistencia.dao.interfaz.LocalidadDAO;
@@ -18,6 +19,7 @@ import persistencia.dao.interfaz.PaisDAO;
 import persistencia.dao.interfaz.PersonaDAO;
 import persistencia.dao.interfaz.ProvinciaDAO;
 import persistencia.dao.interfaz.TipoContactoDAO;
+import persistencia.dao.interfaz.UbicacionDAO;
 
 
 public class Agenda 
@@ -29,6 +31,7 @@ public class Agenda
 	private LocalidadDAO localidad;
 	private ProvinciaDAO provincia;
 	private PaisDAO pais;
+	private UbicacionDAO ubicacion;
 	
 	public Agenda(DAOAbstractFactory metodo_persistencia)
 	{
@@ -39,6 +42,7 @@ public class Agenda
 		this.localidad = metodo_persistencia.createLocalidadDAO();
 		this.provincia = metodo_persistencia.createProvinciaDAO();
 		this.pais = metodo_persistencia.createPaisDAO();
+		this.ubicacion = metodo_persistencia.createUbicacionDAO();
 	}
 	
 	public void agregarPersona(PersonaDTO nuevaPersona)
@@ -71,9 +75,19 @@ public class Agenda
 		return this.lugarTuristico.readAll();	
 	}
 	
+	public List<LugarTuristicoDTO> reporteLugarTuristico()
+	{
+		return this.lugarTuristico.readReporte();	
+	}
+	
 	public HashMap<String, GrupoMusicalDTO> obtenerGrupoMusical()
 	{
 		return this.grupoMusical.readAll();	
+	}
+	
+	public List<GrupoMusicalDTO> reporteGrupoMusical()
+	{
+		return this.grupoMusical.readReporte();	
 	}
 	
 	public HashMap<String, LocalidadDTO> obtenerLocalidades()
@@ -89,6 +103,11 @@ public class Agenda
 	public HashMap<String, PaisDTO> obtenerPaises()
 	{
 		return this.pais.readAll();	
+	}
+	
+	public UbicacionDTO obtenerUbicaciones()
+	{
+		return this.ubicacion.readAll();	
 	}
 	
 }

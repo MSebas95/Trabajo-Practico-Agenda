@@ -15,6 +15,8 @@ public class PersonaDTO
     private String tipoContacto;
     private String idLocalidad;
     private String Localidad;
+    private String provincia;
+	private String pais;
     private int lugarId;
     private String lugarPreferido;
     private int grupoId;
@@ -158,6 +160,24 @@ public class PersonaDTO
 
 	public void setLocalidad(String localidad) {
 		Localidad = localidad;
+	}
+	
+	
+
+	public String getProvincia() {
+		return provincia;
+	}
+
+	public void setProvincia(String provincia) {
+		this.provincia = provincia;
+	}
+
+	public String getPais() {
+		return pais;
+	}
+
+	public void setPais(String pais) {
+		this.pais = pais;
 	}
 
 	public int getLugarId() {

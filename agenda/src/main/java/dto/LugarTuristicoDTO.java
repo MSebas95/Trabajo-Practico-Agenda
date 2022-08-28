@@ -4,6 +4,7 @@ public class LugarTuristicoDTO {
 	
 	private int idLugarTuristico;
 	private String lugar;
+	private Integer cantLugar;
 	
 	public LugarTuristicoDTO(int idLugarTuristico, String lugar)
 	{
@@ -19,12 +20,20 @@ public class LugarTuristicoDTO {
 		this.idLugarTuristico = idLugarTuristico;
 	}
 
-	public String getLugarTuristico() {
+	public String getLugar() {
 		return lugar;
 	}
 
-	public void setLugarTuristico(String lugar) {
+	public void setLugar(String lugar) {
 		this.lugar = lugar;
+	}
+
+	public Integer getCantLugar() {
+		return cantLugar;
+	}
+
+	public void setCantLugar(Integer cantLugar) {
+		this.cantLugar = cantLugar;
 	}
 
 }

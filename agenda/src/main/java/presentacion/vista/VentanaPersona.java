@@ -52,37 +52,38 @@ public class VentanaPersona extends JFrame
 	private HashMap<String, LugarTuristicoDTO> lugarTuristicoByName;
 	private HashMap<String, GrupoMusicalDTO> grupoMusicalByName;
 	List<LocalidadDTO> localidades;
-	UbicacionDTO ubicacion = UbicacionDTO.constructor();
+	UbicacionDTO ubicacion;
 
 
 	
-	public static VentanaPersona getInstance(HashMap<String, TipoContactoDTO> tipoContactoByName, HashMap<String, LugarTuristicoDTO> lugarTuristicoByName,  HashMap<String, GrupoMusicalDTO> grupoMusicalByName)
+	public static VentanaPersona getInstance(HashMap<String, TipoContactoDTO> tipoContactoByName, HashMap<String, LugarTuristicoDTO> lugarTuristicoByName,  HashMap<String, GrupoMusicalDTO> grupoMusicalByName, UbicacionDTO ubicacion)
 	{
 		if(INSTANCE == null)
 		{
-			INSTANCE = new VentanaPersona(tipoContactoByName, lugarTuristicoByName, grupoMusicalByName); 	
-			return new VentanaPersona(tipoContactoByName, lugarTuristicoByName, grupoMusicalByName);
+			INSTANCE = new VentanaPersona(tipoContactoByName, lugarTuristicoByName, grupoMusicalByName, ubicacion); 	
+			return new VentanaPersona(tipoContactoByName, lugarTuristicoByName, grupoMusicalByName, ubicacion);
 		}
 		else
 			return INSTANCE;
 	}
 	
-	public static VentanaPersona getInstance(HashMap<String, TipoContactoDTO> tipoContactoByName,HashMap<String, LugarTuristicoDTO> lugarTuristicoByName, HashMap<String, GrupoMusicalDTO> grupoMusicalByName , PersonaDTO persona)
+	public static VentanaPersona getInstance(HashMap<String, TipoContactoDTO> tipoContactoByName,HashMap<String, LugarTuristicoDTO> lugarTuristicoByName, HashMap<String, GrupoMusicalDTO> grupoMusicalByName , PersonaDTO persona, ArrayList<String> datosUbicacion, UbicacionDTO ubicacion)
 	{
-		INSTANCE_EDITAR = new VentanaPersona(tipoContactoByName ,lugarTuristicoByName, grupoMusicalByName , persona); 	
-		return new VentanaPersona(tipoContactoByName ,lugarTuristicoByName, grupoMusicalByName , persona);
+		INSTANCE_EDITAR = new VentanaPersona(tipoContactoByName ,lugarTuristicoByName, grupoMusicalByName , persona, datosUbicacion, ubicacion); 	
+		return new VentanaPersona(tipoContactoByName ,lugarTuristicoByName, grupoMusicalByName , persona, datosUbicacion, ubicacion);
 	}
 
 	/**
 	 * @wbp.parser.constructor
 	 */
-	private VentanaPersona(HashMap<String, TipoContactoDTO> tipoContactoByName, HashMap<String, LugarTuristicoDTO> lugarTuristicoByName, HashMap<String, GrupoMusicalDTO> grupoMusicalByName) 
+	private VentanaPersona(HashMap<String, TipoContactoDTO> tipoContactoByName, HashMap<String, LugarTuristicoDTO> lugarTuristicoByName, HashMap<String, GrupoMusicalDTO> grupoMusicalByName, UbicacionDTO ubicacion) 
 	{
 		super();
 		
 		this.tipoContactoByName = tipoContactoByName;
 		this.lugarTuristicoByName = lugarTuristicoByName;
 		this.grupoMusicalByName = grupoMusicalByName;
+		this.ubicacion = ubicacion;
 		
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 570, 700);
@@ -237,10 +238,14 @@ public class VentanaPersona extends JFrame
 		this.setVisible(false);
 	}
 	
-	private VentanaPersona(HashMap<String, TipoContactoDTO> tipoContactoByName,HashMap<String, LugarTuristicoDTO> lugarTuristicoByName, HashMap<String, GrupoMusicalDTO> grupoMusicalByName , PersonaDTO persona){
+	private VentanaPersona(HashMap<String, TipoContactoDTO> tipoContactoByName,HashMap<String, LugarTuristicoDTO> lugarTuristicoByName, HashMap<String, GrupoMusicalDTO> grupoMusicalByName , PersonaDTO persona, ArrayList<String> datosUbicacion, UbicacionDTO ubicacion){
 		super();
 		
 		this.tipoContactoByName = tipoContactoByName;
+		this.tipoContactoByName = tipoContactoByName;
+        this.lugarTuristicoByName = lugarTuristicoByName;
+        this.grupoMusicalByName = grupoMusicalByName;
+        this.ubicacion = ubicacion;
 		
 		
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -586,6 +591,17 @@ public class VentanaPersona extends JFrame
 		this.txtTelefono = txtTelefono;
 	}
 	
+	public void llenaUbicacion(UbicacionDTO ubicacion) {
+		this.ubicacion = ubicacion;
+	}
+
+	public UbicacionDTO getUbicacion() {
+		return ubicacion;
+	}
+
+	public void setUbicacion(UbicacionDTO ubicacion) {
+		this.ubicacion = ubicacion;
+	}
 	
 }
 

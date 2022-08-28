@@ -14,9 +14,9 @@ import dto.PersonaDTO;
 public class PersonaDAOSQL implements PersonaDAO
 {
 	private static final String insert = "INSERT INTO personas(nombre, telefono, idTipoContacto, idLocalidad, Calle, altura, piso , depto, email, cumpleaños, idGrupoMusical, idLugarTuristico) VALUES( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-	private static final String edit = "UPDATE PERSONAS SET Nombre = ?, Telefono = ?, idTipoContacto = ?, idLocalidad = ?, Calle = ?, altura = ?, piso = ?, depto = ?, email = ?, cumpleaños = ? WHERE idPersona = ?";
+	private static final String edit = "UPDATE PERSONAS SET Nombre = ?, Telefono = ?, idTipoContacto = ?, idLocalidad = ?, Calle = ?, altura = ?, piso = ?, depto = ?, email = ?, cumpleaños = ?, idGrupoMusical = ?, idLugarTuristico = ? WHERE idPersona = ?";
 	private static final String delete = "DELETE FROM personas WHERE idPersona = ?";
-	private static final String readall = "SELECT * FROM Personas p INNER JOIN TIPO_CONTACTO t ON p.idTipoContacto = t.idTipoContacto INNER JOIN GRUPO_MUSICAL m ON p.idGrupoMusical = m.idGrupoMusical INNER JOIN LUGAR_TURISTICO q ON p.idLugarTuristico = q.idLugarTuristico INNER JOIN LOCALIDAD l ON p.idLocalidad = l.idLocalidad ORDER BY Lugares";
+	private static final String readall = "SELECT * FROM Personas p INNER JOIN TIPO_CONTACTO t ON p.idTipoContacto = t.idTipoContacto INNER JOIN GRUPO_MUSICAL m ON p.idGrupoMusical = m.idGrupoMusical INNER JOIN LUGAR_TURISTICO q ON p.idLugarTuristico = q.idLugarTuristico INNER JOIN LOCALIDAD l ON p.idLocalidad = l.idLocalidad ORDER BY lugar";
 	public boolean insert(PersonaDTO persona)
 	{
 
@@ -38,6 +38,7 @@ public class PersonaDAOSQL implements PersonaDAO
 			statement.setString(10, persona.getCumpleanios());
 			statement.setInt(11, persona.getGrupoId());
 			statement.setInt(12, persona.getLugarId());
+			
 
 
 			
@@ -78,7 +79,9 @@ public class PersonaDAOSQL implements PersonaDAO
 			statement.setString(8, persona_a_editar.getDepto());
 			statement.setString(9, persona_a_editar.getEmail());
 			statement.setString(10, persona_a_editar.getCumpleanios());
-			statement.setInt(11, persona_a_editar.getIdPersona());
+			statement.setInt(11, persona_a_editar.getGrupoId());
+            statement.setInt(12, persona_a_editar.getLugarId());
+            statement.setInt(13, persona_a_editar.getIdPersona());
 			
 			if(statement.executeUpdate() > 0)
 			{
@@ -160,8 +163,8 @@ public class PersonaDAOSQL implements PersonaDAO
 		persona.setLugarTuristicoId(resultSet.getInt("idLugarTuristico"));
 		persona.setCumpleanios(resultSet.getString("cumpleaños"));
 		persona.setTipoContacto(resultSet.getString("Tipo"));
-		persona.setGrupoPreferido(resultSet.getString("Grupo"));
-		persona.setLugarPreferido(resultSet.getString("Lugares"));
+		persona.setGrupoPreferido(resultSet.getString("grupo"));
+		persona.setLugarPreferido(resultSet.getString("lugar"));
 		persona.setLocalidad(resultSet.getString("localidad"));
 		
 		return persona; 

@@ -2,13 +2,11 @@ package presentacion.controlador;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.sql.Date;
-import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
 import modelo.Agenda;
-import presentacion.reportes.ReporteAgenda;
 import presentacion.reportes.ReporteLugares;
 import presentacion.reportes.ReporteMusical;
 import presentacion.vista.VentanaPersona;
@@ -20,6 +18,7 @@ import dto.PaisDTO;
 import dto.PersonaDTO;
 import dto.ProvinciaDTO;
 import dto.TipoContactoDTO;
+import dto.UbicacionDTO;
 
 public class Controlador implements ActionListener
 {
@@ -33,6 +32,7 @@ public class Controlador implements ActionListener
 		private HashMap<String, PaisDTO> paisById;
 		private VentanaPersona ventanaPersona;
 		private VentanaPersona ventanaPersonaEditar;
+		private UbicacionDTO ubicacion;
 		private Agenda agenda;
 		
 		public Controlador(Vista vista, Agenda agenda)
@@ -41,10 +41,10 @@ public class Controlador implements ActionListener
 			this.vista.getBtnAgregar().addActionListener(a->ventanaAgregarPersona(a));
 			this.vista.getbtnEditar().addActionListener(s->editarPersona(s));
 			this.vista.getBtnBorrar().addActionListener(s->borrarPersona(s));
-			this.vista.getBtnReporte().addActionListener(r->mostrarReporte(r));
-			this.vista.getBtnReporteLugares().addActionListener(r->mostrarReporteMusical(r));
+			this.vista.getBtnReporte().addActionListener(r->mostrarReporteMusical(r));
+			this.vista.getBtnReporteLugares().addActionListener(r->mostrarReporteLugares(r));
 			this.agenda = agenda;
-			this.ventanaPersona = VentanaPersona.getInstance(this.agenda.obtenerTipoContacto(), this.agenda.obtenerLugarTuristico(), this.agenda.obtenerGrupoMusical());		
+			this.ventanaPersona = VentanaPersona.getInstance(this.agenda.obtenerTipoContacto(), this.agenda.obtenerLugarTuristico(), this.agenda.obtenerGrupoMusical(), this.agenda.obtenerUbicaciones());		
 			this.ventanaPersona.getBtnAgregarPersona().addActionListener(p->guardarPersona(p));
 		}
 		
@@ -83,18 +83,15 @@ public class Controlador implements ActionListener
 			
 		}
 
-		private void mostrarReporte(ActionEvent r) {
-			ReporteAgenda reporte = new ReporteAgenda(agenda.obtenerPersonas());
-			reporte.mostrar();	
-		}
+
 		
 		private void mostrarReporteLugares(ActionEvent r) {
-			ReporteLugares reporte = new ReporteLugares(agenda.obtenerPersonas());
+			ReporteLugares reporte = new ReporteLugares(agenda.reporteLugarTuristico());
 			reporte.mostrar();	
 		}
 		
 		private void mostrarReporteMusical(ActionEvent r) {
-			ReporteMusical reporte = new ReporteMusical(agenda.obtenerPersonas());
+			ReporteMusical reporte = new ReporteMusical(agenda.reporteGrupoMusical());
 			reporte.mostrar();	
 		}
 		
@@ -102,7 +99,11 @@ public class Controlador implements ActionListener
 		{
 			if (this.vista.getTablaPersonas().getSelectedRow() >= 0 ) {
 				PersonaDTO persona = this.personasEnTabla.get(this.vista.getTablaPersonas().getSelectedRow());
-				this.ventanaPersonaEditar = VentanaPersona.getInstance(this.agenda.obtenerTipoContacto(), this.agenda.obtenerLugarTuristico(), this.agenda.obtenerGrupoMusical() ,persona);		
+				ArrayList<String> datosUbicacion = new ArrayList<String>();
+				datosUbicacion.add(this.personasEnTabla.get(this.vista.getTablaPersonas().getSelectedRow()).getPais());
+				datosUbicacion.add(this.personasEnTabla.get(this.vista.getTablaPersonas().getSelectedRow()).getProvincia());
+				datosUbicacion.add(this.personasEnTabla.get(this.vista.getTablaPersonas().getSelectedRow()).getLocalidad());
+				this.ventanaPersonaEditar = VentanaPersona.getInstance(this.agenda.obtenerTipoContacto(), this.agenda.obtenerLugarTuristico(), this.agenda.obtenerGrupoMusical() ,persona, datosUbicacion,  this.agenda.obtenerUbicaciones() );		
 				this.ventanaPersonaEditar.getBtnEditarPersona().addActionListener(e->editarPersona(e, persona.getIdPersona()));
 				
 				this.ventanaPersonaEditar.mostrarVentana();
@@ -112,32 +113,36 @@ public class Controlador implements ActionListener
 		}
 		
 		private void editarPersona(ActionEvent p, int idPersona) {
-			String nombre = this.ventanaPersonaEditar.getTxtNombre().getText();
-			String tel = ventanaPersonaEditar.getTxtTelefono().getText();
-			String tipoContacto = this.ventanaPersonaEditar.getContactTypeName();
-			String localidadPersona = this.ventanaPersonaEditar.getLocalidadName();
-			String callePersona = this.ventanaPersonaEditar.getCalle().getText();
-			String alturaCalle = this.ventanaPersonaEditar.getAltura().getText();
-			String piso = this.ventanaPersonaEditar.getPiso().getText();
-			String depto = this.ventanaPersonaEditar.getDepto().getText();
-			String email = this.ventanaPersonaEditar.getEmail().getText();
-			String cumpleaños = this.ventanaPersonaEditar.getTxtCumpleaños().getText();
-			//String lugarTuristico = this.ventanaPersonaEditar
-			PersonaDTO nuevaPersona = new PersonaDTO(0, nombre, tel);
-			nuevaPersona.setTipoContactoId(tipoDeContactoByName.get(tipoContacto).getIdTipoContacto());
-			nuevaPersona.setLocalidad(localidadByName.get(localidadPersona).getLocalidad());
-			nuevaPersona.setIdLocalidad(localidadByName.get(localidadPersona).getIdLocalidad());
-			nuevaPersona.setCalle(callePersona);
-			nuevaPersona.setAltura(alturaCalle);
-			nuevaPersona.setPiso(piso);
-			nuevaPersona.setDepto(depto);
-			nuevaPersona.setEmail(email);
-			nuevaPersona.setCumpleanios(cumpleaños);
-			nuevaPersona.setIdPersona(idPersona);
-			this.agenda.editarPersona(nuevaPersona);
-			this.refrescarTabla();
-			this.ventanaPersonaEditar.cerrar();
-		}
+            String nombre = this.ventanaPersonaEditar.getTxtNombre().getText();
+            String tel = ventanaPersonaEditar.getTxtTelefono().getText();
+            String tipoContacto = this.ventanaPersonaEditar.getContactTypeName();
+            String localidadPersona = this.ventanaPersonaEditar.getLocalidadName();
+            String callePersona = this.ventanaPersonaEditar.getCalle().getText();
+            String alturaCalle = this.ventanaPersonaEditar.getAltura().getText();
+            String piso = this.ventanaPersonaEditar.getPiso().getText();
+            String depto = this.ventanaPersonaEditar.getDepto().getText();
+            String email = this.ventanaPersonaEditar.getEmail().getText();
+            String cumpleaños = this.ventanaPersonaEditar.getTxtCumpleaños().getText();
+            String grupoMusical = this.ventanaPersonaEditar.getBandTypeName();
+            String lugarTuristico = this.ventanaPersonaEditar.getPlaceTypeName();
+            PersonaDTO nuevaPersona = new PersonaDTO(0, nombre, tel);
+            nuevaPersona.setTipoContactoId(tipoDeContactoByName.get(tipoContacto).getIdTipoContacto());
+            nuevaPersona.setLocalidad(localidadByName.get(localidadPersona).getLocalidad());
+            nuevaPersona.setIdLocalidad(localidadByName.get(localidadPersona).getIdLocalidad());
+            nuevaPersona.setCalle(callePersona);
+            nuevaPersona.setAltura(alturaCalle);
+            nuevaPersona.setPiso(piso);
+            nuevaPersona.setDepto(depto);
+            nuevaPersona.setEmail(email);
+            nuevaPersona.setCumpleanios(cumpleaños);
+            nuevaPersona.setIdPersona(idPersona);
+            nuevaPersona.setGrupoMusicalId(grupoMusicalByName.get(grupoMusical).getIdGrupoMusical());
+            nuevaPersona.setLugarTuristicoId(lugarTuristicoByName.get(lugarTuristico).getIdLugarTuristico());
+
+            this.agenda.editarPersona(nuevaPersona);
+            this.refrescarTabla();
+            this.ventanaPersonaEditar.cerrar();
+        }
 
 		public void borrarPersona(ActionEvent s)
 		{
@@ -165,9 +170,11 @@ public class Controlador implements ActionListener
 			this.localidadByName = agenda.obtenerLocalidades();
 			this.provinciaById = agenda.obtenerProvincias();
 			this.paisById = agenda.obtenerPaises();
+			this.ubicacion = agenda.obtenerUbicaciones();
 			this.ventanaPersona.llenarTipoContacto(this.tipoDeContactoByName);
 			this.ventanaPersona.llenarLugarTuristico(this.lugarTuristicoByName);
 			this.ventanaPersona.llenarGrupoMusical(this.grupoMusicalByName);
+			this.ventanaPersona.llenaUbicacion(this.ubicacion);
 		
 			
 			this.vista.llenarTabla(this.personasEnTabla);

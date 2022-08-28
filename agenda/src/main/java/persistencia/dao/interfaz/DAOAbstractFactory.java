@@ -16,5 +16,7 @@ public interface DAOAbstractFactory
 	public LugarTuristicoDAO createLugarTuristicoDAO();
 	
 	public GrupoMusicalDAO createGrupoMusicalDAO();
+	
+	public UbicacionDAO createUbicacionDAO();
 }
 
