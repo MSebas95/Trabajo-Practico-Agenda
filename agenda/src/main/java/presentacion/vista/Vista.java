@@ -28,7 +28,7 @@ public class Vista
 	private JButton btnReporte;
 	private JButton btnReporteLugares;
 	private DefaultTableModel modelPersonas;
-	private  String[] nombreColumnas = {"Nombre y apellido","Telefono", "Calle", "Localidad", "Altura", "Piso", "Depto", "Email", "Cumpleaños", "Tipo de contacto", "Lugar preferido", "Grupo preferido"};
+	private  String[] nombreColumnas = {"Nombre y apellido","Telefono", "Calle", "Localidad", "Altura", "Piso", "Depto", "Email", "Cumpleaños", "Tipo de contacto", "Grupo preferido", "Lugar preferido"};
 
 	public Vista() 
 	{
@@ -164,9 +164,10 @@ public class Vista
 			String tipoContacto = p.getTipoContacto();
 			String lugarTuristico = p.getLugarPreferido();
 			String grupoMusical = p.getGrupoPreferido();
+			System.out.println(grupoMusical);
 
 			
-			Object[] fila = {nombre, tel, calle, localidad, altura, piso, depto, email, cumpleanios, tipoContacto, lugarTuristico, grupoMusical};
+			Object[] fila = {nombre, tel, calle, localidad, altura, piso, depto, email, cumpleanios, tipoContacto, grupoMusical,  lugarTuristico};
 			this.getModelPersonas().addRow(fila);
 		}
 		

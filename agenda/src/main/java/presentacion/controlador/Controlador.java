@@ -42,7 +42,7 @@ public class Controlador implements ActionListener
 			this.vista.getbtnEditar().addActionListener(s->editarPersona(s));
 			this.vista.getBtnBorrar().addActionListener(s->borrarPersona(s));
 			this.vista.getBtnReporte().addActionListener(r->mostrarReporte(r));
-			this.vista.getBtnReporteLugares().addActionListener(r->mostrarReporteLugares(r));
+			this.vista.getBtnReporteLugares().addActionListener(r->mostrarReporteMusical(r));
 			this.agenda = agenda;
 			this.ventanaPersona = VentanaPersona.getInstance(this.agenda.obtenerTipoContacto(), this.agenda.obtenerLugarTuristico(), this.agenda.obtenerGrupoMusical());		
 			this.ventanaPersona.getBtnAgregarPersona().addActionListener(p->guardarPersona(p));
@@ -161,10 +161,13 @@ public class Controlador implements ActionListener
 			this.personasEnTabla = agenda.obtenerPersonas();
 			this.tipoDeContactoByName = agenda.obtenerTipoContacto();
 			this.lugarTuristicoByName = agenda.obtenerLugarTuristico();
+			this.grupoMusicalByName = agenda.obtenerGrupoMusical();
 			this.localidadByName = agenda.obtenerLocalidades();
 			this.provinciaById = agenda.obtenerProvincias();
 			this.paisById = agenda.obtenerPaises();
 			this.ventanaPersona.llenarTipoContacto(this.tipoDeContactoByName);
+			this.ventanaPersona.llenarLugarTuristico(this.lugarTuristicoByName);
+			this.ventanaPersona.llenarGrupoMusical(this.grupoMusicalByName);
 		
 			
 			this.vista.llenarTabla(this.personasEnTabla);
