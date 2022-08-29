@@ -75,7 +75,7 @@ public class Controlador implements ActionListener
 			nuevaPersona.setDepto(depto);
 			nuevaPersona.setEmail(email);
 			nuevaPersona.setCumpleanios(cumpleaños);
-			nuevaPersona.setLugarTuristicoId(lugarTuristicoByName.get(lugarTuristico).getIdLugarTuristico());
+			nuevaPersona.setIdLugarTuristico(lugarTuristicoByName.get(lugarTuristico).getIdLugarTuristico());
 			nuevaPersona.setGrupoMusicalId(grupoMusicalByName.get(grupoMusical).getIdGrupoMusical());
 			this.agenda.agregarPersona(nuevaPersona);
 			this.refrescarTabla();
@@ -86,12 +86,12 @@ public class Controlador implements ActionListener
 
 		
 		private void mostrarReporteLugares(ActionEvent r) {
-			ReporteLugares reporte = new ReporteLugares(agenda.reporteLugarTuristico());
+			ReporteLugares reporte = new ReporteLugares(agenda.reporteLugar());
 			reporte.mostrar();	
 		}
 		
 		private void mostrarReporteMusical(ActionEvent r) {
-			ReporteMusical reporte = new ReporteMusical(agenda.reporteGrupoMusical());
+			ReporteMusical reporte = new ReporteMusical(agenda.reporteGrupo());
 			reporte.mostrar();	
 		}
 		
@@ -137,7 +137,7 @@ public class Controlador implements ActionListener
             nuevaPersona.setCumpleanios(cumpleaños);
             nuevaPersona.setIdPersona(idPersona);
             nuevaPersona.setGrupoMusicalId(grupoMusicalByName.get(grupoMusical).getIdGrupoMusical());
-            nuevaPersona.setLugarTuristicoId(lugarTuristicoByName.get(lugarTuristico).getIdLugarTuristico());
+            nuevaPersona.setIdLugarTuristico(lugarTuristicoByName.get(lugarTuristico).getIdLugarTuristico());
 
             this.agenda.editarPersona(nuevaPersona);
             this.refrescarTabla();

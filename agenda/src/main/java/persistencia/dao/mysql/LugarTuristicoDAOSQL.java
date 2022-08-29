@@ -14,7 +14,7 @@ import dto.LugarTuristicoDTO;
 
 public class LugarTuristicoDAOSQL implements LugarTuristicoDAO{
 	private static final String readall = "SELECT * FROM LUGAR_TURISTICO";
-	private static final String readReporte = "SELECT l.idLugarTuristico, l.lugar, count(p.idLugarTuristico) as cantLugar FROM LUGAR_TURISTICO l INNER JOIN personas p ON p.idLugarTuristico = l.idLugarTuristico group by l.lugar";
+	//private static final String readReporte = "SELECT l.idLugarTuristico, l.lugar, count(p.idLugarTuristico) as cantLugar FROM LUGAR_TURISTICO l INNER JOIN personas p ON p.idLugarTuristico = l.idLugarTuristico group by l.lugar";
 
 	public HashMap<String, LugarTuristicoDTO> readAll() 
 	{
@@ -48,7 +48,7 @@ public class LugarTuristicoDAOSQL implements LugarTuristicoDAO{
 		return lugarTuristico; 
 	}
 	
-	public List<LugarTuristicoDTO> readReporte() 
+	/*public List<LugarTuristicoDTO> readReporte() 
 	{
 		PreparedStatement statement;
 		ResultSet resultSet; //Guarda el resultado de la query
@@ -78,6 +78,6 @@ public class LugarTuristicoDAOSQL implements LugarTuristicoDAO{
 		LugarTuristicoDTO lugarTuristico = new LugarTuristicoDTO(id, lugar);
 		lugarTuristico.setCantLugar(cantLugar);		
 		return lugarTuristico; 
-	}
+	}*/
 
 }

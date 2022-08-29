@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.12.2.final using JasperReports Library version 6.12.2-75c5e90a222ab406e416cbf590a5397028a52de3  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ReporteGrupoMusical" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="ca253f50-598b-4517-8e4c-c8737f2a5bd0">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Agenda"/>
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<queryString>
+		<![CDATA[SELECT idPersona, nombre, telefono, total, rf.grupo
+FROM Personas P 
+INNER JOIN (select L_2.idGrupoMusical, L_2.grupo, count(distinct P_2.idPersona) as Total from personas as P_2 left join grupo_musical as L_2 on P_2.idGrupoMusical = L_2.idGrupoMusical group by L_2.idGrupoMusical) as rf
+ON P.idGrupoMusical = rf.idGrupoMusical]]>
+	</queryString>
+	<field name="idPersona" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.label" value="idPersona"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="personas"/>
+	</field>
+	<field name="nombre" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="nombre"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="personas"/>
+	</field>
+	<field name="telefono" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="telefono"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="personas"/>
+	</field>
+	<field name="total" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.label" value="total"/>
+	</field>
+	<field name="grupo" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="grupo"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="grupo_musical"/>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="10" width="250" height="30" uuid="8ccae071-6a33-4217-a671-eb3a31a5fd9e"/>
+				<textElement>
+					<font size="18"/>
+				</textElement>
+				<text><![CDATA[Reporte: Grupos Musicales Preferidos]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="35" splitType="Stretch">
+			<staticText>
+				<reportElement x="3" y="2" width="506" height="20" uuid="cd64d1fe-e0d4-4b0d-878a-28bfaf2c65c0"/>
+				<text><![CDATA[Reporte sobre los grupos musicales predilectos por los contactos de la agenda]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="61" splitType="Stretch">
+			<staticText>
+				<reportElement x="20" y="1" width="172" height="21" uuid="38d5993c-3dd1-4c11-a762-f936293e49d3">
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Left">
+					<font size="14"/>
+				</textElement>
+				<text><![CDATA[Grupo Musical]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="310" y="1" width="160" height="20" uuid="e211b964-c376-48ff-b865-ceef7a6a8d15">
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Left">
+					<font size="14"/>
+				</textElement>
+				<text><![CDATA[Tendencia]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="56" splitType="Stretch">
+			<textField>
+				<reportElement x="30" y="0" width="225" height="18" uuid="b763c1c6-2598-433b-b037-3ddce27e37e4"/>
+				<textElement textAlignment="Left"/>
+				<textFieldExpression><![CDATA[$F{nombre}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="320" y="-1" width="160" height="20" uuid="61dde1d8-002f-45f6-8b09-8de2ef56c733">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Left"/>
+				<textFieldExpression><![CDATA[$F{total}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<summary>
+		<band height="284" splitType="Stretch">
+			<pieChart>
+				<chart evaluationTime="Report">
+					<reportElement x="3" y="70" width="527" height="200" uuid="0554892f-62e1-40f0-8dce-9dc14ce36465"/>
+					<chartTitle/>
+					<chartSubtitle/>
+					<chartLegend/>
+				</chart>
+				<pieDataset>
+					<dataset resetType="Report"/>
+					<keyExpression><![CDATA[$F{grupo}]]></keyExpression>
+					<valueExpression><![CDATA[$F{total}]]></valueExpression>
+					<labelExpression><![CDATA[$F{total}+""]]></labelExpression>
+				</pieDataset>
+				<piePlot>
+					<plot/>
+					<itemLabel/>
+				</piePlot>
+			</pieChart>
+			<staticText>
+				<reportElement x="10" y="4" width="360" height="30" uuid="eb76ec6e-ccf0-45d2-8a3c-6657110e355c"/>
+				<textElement>
+					<font size="18"/>
+				</textElement>
+				<text><![CDATA[Grafico Grupos Musicales Preferidos]]></text>
+			</staticText>
+		</band>
+	</summary>
+</jasperReport>

@@ -26,13 +26,13 @@ public class ReporteLugares
 	private JasperPrint	reporteLleno;
 	private Logger log = Logger.getLogger(ReporteLugares.class);
 	//Recibe la lista de personas para armar el reporte
-    public ReporteLugares(List<LugarTuristicoDTO> personas)
+    public ReporteLugares(List<PersonaDTO> personas)
     {
     	//Hardcodeado
 		Map<String, Object> parametersMap = new HashMap<String, Object>();
 		parametersMap.put("Fecha", new SimpleDateFormat("dd/MM/yyyy").format(new Date()));		
     	try		{
-			this.reporte = (JasperReport) JRLoader.loadObjectFromFile( "reportes" + File.separator + "ReporteLugar.jasper" );
+			this.reporte = (JasperReport) JRLoader.loadObjectFromFile( "reportes" + File.separator + "ReporteLugares.jasper" );
 			this.reporteLleno = JasperFillManager.fillReport(this.reporte, parametersMap, 
 					new JRBeanCollectionDataSource(personas));
     		log.info("Se cargó correctamente el reporte");

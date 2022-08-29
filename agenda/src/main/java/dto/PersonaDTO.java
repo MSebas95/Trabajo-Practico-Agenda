@@ -17,10 +17,12 @@ public class PersonaDTO
     private String Localidad;
     private String provincia;
 	private String pais;
-    private int lugarId;
-    private String lugarPreferido;
+    private Integer idLugarTuristico;
+    private String lugar;
     private int grupoId;
-    private String grupoPreferido;
+    private String grupo;
+    private Double total;
+    
 
 	public PersonaDTO(int idPersona, String nombre, String telefono, String calle, String altura, String piso, String depto, String email, String cumpleanios, int tipoContactoId, String tipoContacto, String idLocalidad, String Localidad, int lugarId, String lugarPreferido, int grupoId, String grupoPreferido)
 	{
@@ -37,10 +39,10 @@ public class PersonaDTO
 		this.tipoContacto = tipoContacto;
 		this.idLocalidad = idLocalidad;
 		this.Localidad = Localidad;
-		this.lugarId = lugarId;
+		this.idLugarTuristico = lugarId;
 		this.grupoId = grupoId;
-		this.lugarPreferido = lugarPreferido;
-		this.grupoPreferido = grupoPreferido;
+		this.lugar = lugarPreferido;
+		this.grupo = grupoPreferido;
 	}
 	
 	public PersonaDTO(int idPersona, String nombre, String telefono)
@@ -49,7 +51,8 @@ public class PersonaDTO
         this.nombre = nombre;
         this.telefono = telefono;
     }
-
+	
+	
 	public int getIdPersona() {
 		return idPersona;
 	}
@@ -130,9 +133,6 @@ public class PersonaDTO
 		this.tipoContactoId = tipoContactoId;
 	}
 	
-	public void setLugarTuristicoId(int lugarId) {
-		this.lugarId = lugarId;
-	}
 	
 	public void setGrupoMusicalId(int grupoId) {
 		this.grupoId = grupoId;
@@ -180,21 +180,7 @@ public class PersonaDTO
 		this.pais = pais;
 	}
 
-	public int getLugarId() {
-		return lugarId;
-	}
 
-	public void setLugarId(int lugarId) {
-		this.lugarId = lugarId;
-	}
-
-	public String getLugarPreferido() {
-		return lugarPreferido;
-	}
-
-	public void setLugarPreferido(String lugarPreferido) {
-		this.lugarPreferido = lugarPreferido;
-	}
 
 	public int getGrupoId() {
 		return grupoId;
@@ -204,16 +190,38 @@ public class PersonaDTO
 		this.grupoId = grupoId;
 	}
 
-	public String getGrupoPreferido() {
-		return grupoPreferido;
+	public String getGrupo() {
+		return grupo;
 	}
 
-	public void setGrupoPreferido(String grupoPreferido) {
-		this.grupoPreferido = grupoPreferido;
+	public void setGrupo(String grupoPreferido) {
+		this.grupo = grupoPreferido;
 	}
-	
-	
-	
+
+	public Double getTotal() {
+		return total;
+	}
+
+	public void setTotal(Double total) {
+		this.total = total;
+	}
+
+	public Integer getIdLugarTuristico() {
+		return idLugarTuristico;
+	}
+
+	public void setIdLugarTuristico(Integer idLugarTuristico) {
+		this.idLugarTuristico = idLugarTuristico;
+	}
+
+	public String getLugar() {
+		return lugar;
+	}
+
+	public void setLugar(String lugar) {
+		this.lugar = lugar;
+	}
+
 
 
 	

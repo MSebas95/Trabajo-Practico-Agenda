@@ -70,14 +70,19 @@ public class Agenda
 		return this.tipoContacto.readAll();	
 	}
 	
+	public List<PersonaDTO> reporteLugar()
+	{
+		return this.persona.readReporteLugar();	
+	}
+	
+	public List<PersonaDTO> reporteGrupo()
+	{
+		return this.persona.readReporteGrupo();	
+	}
+	
 	public HashMap<String, LugarTuristicoDTO> obtenerLugarTuristico()
 	{
 		return this.lugarTuristico.readAll();	
-	}
-	
-	public List<LugarTuristicoDTO> reporteLugarTuristico()
-	{
-		return this.lugarTuristico.readReporte();	
 	}
 	
 	public HashMap<String, GrupoMusicalDTO> obtenerGrupoMusical()
@@ -85,10 +90,6 @@ public class Agenda
 		return this.grupoMusical.readAll();	
 	}
 	
-	public List<GrupoMusicalDTO> reporteGrupoMusical()
-	{
-		return this.grupoMusical.readReporte();	
-	}
 	
 	public HashMap<String, LocalidadDTO> obtenerLocalidades()
 	{

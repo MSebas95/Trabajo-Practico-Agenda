@@ -9,5 +9,5 @@ public interface LugarTuristicoDAO
 	
 	public HashMap<String, LugarTuristicoDTO> readAll();
 	
-	public List<LugarTuristicoDTO> readReporte(); 
+	//public List<LugarTuristicoDTO> readReporte(); 
 }

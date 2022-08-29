@@ -162,8 +162,8 @@ public class Vista
 			String email = p.getEmail();
 			String cumpleanios = p.getCumpleanios();
 			String tipoContacto = p.getTipoContacto();
-			String lugarTuristico = p.getLugarPreferido();
-			String grupoMusical = p.getGrupoPreferido();
+			String lugarTuristico = p.getLugar();
+			String grupoMusical = p.getGrupo();
 			System.out.println(grupoMusical);
 
 			

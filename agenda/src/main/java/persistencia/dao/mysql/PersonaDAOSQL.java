@@ -17,6 +17,8 @@ public class PersonaDAOSQL implements PersonaDAO
 	private static final String edit = "UPDATE PERSONAS SET Nombre = ?, Telefono = ?, idTipoContacto = ?, idLocalidad = ?, Calle = ?, altura = ?, piso = ?, depto = ?, email = ?, cumpleaños = ?, idGrupoMusical = ?, idLugarTuristico = ? WHERE idPersona = ?";
 	private static final String delete = "DELETE FROM personas WHERE idPersona = ?";
 	private static final String readall = "SELECT * FROM Personas p INNER JOIN TIPO_CONTACTO t ON p.idTipoContacto = t.idTipoContacto INNER JOIN GRUPO_MUSICAL m ON p.idGrupoMusical = m.idGrupoMusical INNER JOIN LUGAR_TURISTICO q ON p.idLugarTuristico = q.idLugarTuristico INNER JOIN LOCALIDAD l ON p.idLocalidad = l.idLocalidad ORDER BY lugar";
+	private static final String readLugarTuristico = "SELECT idPersona, nombre, telefono, total , rf.lugar FROM Personas P INNER JOIN (select L_2.idLugarTuristico, L_2.lugar, count(distinct P_2.idPersona)* 100.0 / sum(count( P_2.idPersona)) over() as Total from personas as P_2 left join lugar_turistico as L_2 on P_2.idLugarTuristico = L_2.idLugarTuristico group by L_2.idLugarTuristico) as rf ON P.idLugarTuristico = rf.idLugarTuristico";
+	private static final String readGrupoMusical = "SELECT idPersona, nombre, telefono, total, rf.grupo FROM Personas P INNER JOIN (select L_2.idGrupoMusical, L_2.grupo, count(distinct P_2.idPersona)* 100.0 / sum(count( P_2.idPersona)) over() as Total from personas as P_2 left join grupo_musical as L_2 on P_2.idGrupoMusical = L_2.idGrupoMusical group by L_2.idGrupoMusical) as rf ON P.idGrupoMusical = rf.idGrupoMusical";
 	public boolean insert(PersonaDTO persona)
 	{
 
@@ -37,7 +39,7 @@ public class PersonaDAOSQL implements PersonaDAO
 			statement.setString(9, persona.getEmail());
 			statement.setString(10, persona.getCumpleanios());
 			statement.setInt(11, persona.getGrupoId());
-			statement.setInt(12, persona.getLugarId());
+			statement.setInt(12, persona.getIdLugarTuristico());
 			
 
 
@@ -80,7 +82,7 @@ public class PersonaDAOSQL implements PersonaDAO
 			statement.setString(9, persona_a_editar.getEmail());
 			statement.setString(10, persona_a_editar.getCumpleanios());
 			statement.setInt(11, persona_a_editar.getGrupoId());
-            statement.setInt(12, persona_a_editar.getLugarId());
+            statement.setInt(12, persona_a_editar.getIdLugarTuristico());
             statement.setInt(13, persona_a_editar.getIdPersona());
 			
 			if(statement.executeUpdate() > 0)
@@ -160,12 +162,84 @@ public class PersonaDAOSQL implements PersonaDAO
 		persona.setIdLocalidad(resultSet.getString("idLocalidad"));
 		persona.setTipoContactoId(resultSet.getInt("idTipoContacto"));
 		persona.setGrupoMusicalId(resultSet.getInt("idGrupoMusical"));
-		persona.setLugarTuristicoId(resultSet.getInt("idLugarTuristico"));
+		persona.setIdLugarTuristico(resultSet.getInt("idLugarTuristico"));
 		persona.setCumpleanios(resultSet.getString("cumpleaños"));
 		persona.setTipoContacto(resultSet.getString("Tipo"));
-		persona.setGrupoPreferido(resultSet.getString("grupo"));
-		persona.setLugarPreferido(resultSet.getString("lugar"));
+		persona.setGrupo(resultSet.getString("grupo"));
+		persona.setLugar(resultSet.getString("lugar"));
 		persona.setLocalidad(resultSet.getString("localidad"));
+		
+		return persona; 
+	}
+	
+	public List<PersonaDTO> readReporteLugar()
+	{
+		PreparedStatement statement;
+		ResultSet resultSet; //Guarda el resultado de la query
+		ArrayList<PersonaDTO> personas = new ArrayList<PersonaDTO>();
+		Conexion conexion = Conexion.getConexion();
+		try 
+		{
+			statement = conexion.getSQLConexion().prepareStatement(readLugarTuristico);
+			resultSet = statement.executeQuery();
+			while(resultSet.next())
+			{
+				personas.add(getPersonaDTOLugar(resultSet));
+			}
+		} 
+		catch (SQLException e) 
+		{
+			e.printStackTrace();
+		}
+		return personas;
+	}
+	
+	private PersonaDTO getPersonaDTOLugar(ResultSet resultSet) throws SQLException
+	{
+		int id = resultSet.getInt("idPersona");
+		String nombre = resultSet.getString("nombre");
+		String tel = resultSet.getString("telefono");
+		PersonaDTO persona = new PersonaDTO(id, nombre, tel);
+		persona.setTotal(resultSet.getDouble("total"));
+		persona.setLugar(resultSet.getString("lugar"));
+		
+		
+		
+		return persona; 
+	}
+	
+	public List<PersonaDTO> readReporteGrupo()
+	{
+		PreparedStatement statement;
+		ResultSet resultSet; //Guarda el resultado de la query
+		ArrayList<PersonaDTO> personas = new ArrayList<PersonaDTO>();
+		Conexion conexion = Conexion.getConexion();
+		try 
+		{
+			statement = conexion.getSQLConexion().prepareStatement(readGrupoMusical);
+			resultSet = statement.executeQuery();
+			while(resultSet.next())
+			{
+				personas.add(getPersonaDTOGrupo(resultSet));
+			}
+		} 
+		catch (SQLException e) 
+		{
+			e.printStackTrace();
+		}
+		return personas;
+	}
+	
+	private PersonaDTO getPersonaDTOGrupo(ResultSet resultSet) throws SQLException
+	{
+		int id = resultSet.getInt("idPersona");
+		String nombre = resultSet.getString("nombre");
+		String tel = resultSet.getString("telefono");
+		PersonaDTO persona = new PersonaDTO(id, nombre, tel);
+		persona.setTotal(resultSet.getDouble("total"));
+		persona.setGrupo(resultSet.getString("grupo"));
+		
+		
 		
 		return persona; 
 	}
