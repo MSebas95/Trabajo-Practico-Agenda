@@ -21,7 +21,6 @@ public class PersonaDTO
     private String lugar;
     private int grupoId;
     private String grupo;
-    private Double total;
     
 
 	public PersonaDTO(int idPersona, String nombre, String telefono, String calle, String altura, String piso, String depto, String email, String cumpleanios, int tipoContactoId, String tipoContacto, String idLocalidad, String Localidad, int lugarId, String lugarPreferido, int grupoId, String grupoPreferido)
@@ -198,13 +197,6 @@ public class PersonaDTO
 		this.grupo = grupoPreferido;
 	}
 
-	public Double getTotal() {
-		return total;
-	}
-
-	public void setTotal(Double total) {
-		this.total = total;
-	}
 
 	public Integer getIdLugarTuristico() {
 		return idLugarTuristico;

@@ -70,15 +70,6 @@ public class Agenda
 		return this.tipoContacto.readAll();	
 	}
 	
-	public List<PersonaDTO> reporteLugar()
-	{
-		return this.persona.readReporteLugar();	
-	}
-	
-	public List<PersonaDTO> reporteGrupo()
-	{
-		return this.persona.readReporteGrupo();	
-	}
 	
 	public HashMap<String, LugarTuristicoDTO> obtenerLugarTuristico()
 	{

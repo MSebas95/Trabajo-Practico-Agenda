@@ -86,12 +86,13 @@ public class Controlador implements ActionListener
 
 		
 		private void mostrarReporteLugares(ActionEvent r) {
-			ReporteLugares reporte = new ReporteLugares(agenda.reporteLugar());
+			ReporteMusical reporte = new ReporteMusical("ReporteLugarTuristico.jasper");
 			reporte.mostrar();	
 		}
 		
 		private void mostrarReporteMusical(ActionEvent r) {
-			ReporteMusical reporte = new ReporteMusical(agenda.reporteGrupo());
+			
+			ReporteMusical reporte = new ReporteMusical("ReporteGrupo.jasper");
 			reporte.mostrar();	
 		}
 		

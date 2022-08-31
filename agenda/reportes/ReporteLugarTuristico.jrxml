@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.12.2.final using JasperReports Library version 6.12.2-75c5e90a222ab406e416cbf590a5397028a52de3  -->
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ReporteLugares" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="2f93ba55-249e-462d-b8de-8645fc28b514">
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ReporteLugarTuristico" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="86613443-2c54-4134-ba2c-fc22adfd921d">
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Agenda"/>
+	<property name="net.sf.jasperreports.chart.pie.ignore.duplicated.key" value="true"/>
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<parameter name="Fecha" class="java.lang.String"/>
 	<queryString>
 		<![CDATA[SELECT idPersona, nombre, telefono, total , rf.lugar
 FROM Personas P 
@@ -21,7 +23,7 @@ ON P.idLugarTuristico = rf.idLugarTuristico]]>
 		<property name="com.jaspersoft.studio.field.label" value="telefono"/>
 		<property name="com.jaspersoft.studio.field.tree.path" value="personas"/>
 	</field>
-	<field name="total" class="java.lang.Double">
+	<field name="total" class="java.math.BigDecimal">
 		<property name="com.jaspersoft.studio.field.label" value="total"/>
 	</field>
 	<field name="lugar" class="java.lang.String">
@@ -34,18 +36,26 @@ ON P.idLugarTuristico = rf.idLugarTuristico]]>
 	<title>
 		<band height="79" splitType="Stretch">
 			<staticText>
-				<reportElement x="0" y="10" width="240" height="30" uuid="29525e15-ddda-4986-9c40-b28bd52c4106"/>
+				<reportElement x="0" y="10" width="240" height="30" uuid="94bc99da-c82b-4e17-8c8a-f15049b5d32d"/>
 				<textElement>
 					<font size="18"/>
 				</textElement>
 				<text><![CDATA[Reporte: Lugares Turisticos]]></text>
 			</staticText>
+			<staticText>
+				<reportElement x="390" y="2" width="102" height="20" uuid="c7714058-4f9b-4735-9bc4-9b58dcb7b911"/>
+				<text><![CDATA[Reporte generado el:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="489" y="2" width="56" height="20" uuid="e4a18adc-282b-4043-b26a-b5686b69489a"/>
+				<textFieldExpression><![CDATA[$P{Fecha}]]></textFieldExpression>
+			</textField>
 		</band>
 	</title>
 	<pageHeader>
-		<band height="55" splitType="Stretch">
+		<band height="35" splitType="Stretch">
 			<staticText>
-				<reportElement x="3" y="2" width="506" height="20" uuid="6ace70e1-8caf-478d-ad03-f5f7516673e7"/>
+				<reportElement x="3" y="2" width="506" height="20" uuid="fc1afb43-97cc-4e1f-8da1-4ceb9f028182"/>
 				<text><![CDATA[Reporte sobre los lugares Turisticos predilectos por los contactos de la agenda]]></text>
 			</staticText>
 		</band>
@@ -53,7 +63,7 @@ ON P.idLugarTuristico = rf.idLugarTuristico]]>
 	<columnHeader>
 		<band height="61" splitType="Stretch">
 			<staticText>
-				<reportElement x="20" y="1" width="172" height="21" uuid="41631865-69e6-45fa-856c-2cd78249b202">
+				<reportElement x="20" y="1" width="172" height="21" uuid="46c0aa73-7315-475f-983c-19a8699cc2eb">
 					<property name="com.jaspersoft.studio.unit.x" value="px"/>
 				</reportElement>
 				<textElement textAlignment="Left">
@@ -62,7 +72,7 @@ ON P.idLugarTuristico = rf.idLugarTuristico]]>
 				<text><![CDATA[Nombre]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="310" y="1" width="160" height="20" uuid="15df4f6d-b675-4aa6-a4b8-cd6a34a82510">
+				<reportElement x="310" y="1" width="160" height="20" uuid="9904d412-9225-447e-9268-e62115a5c923">
 					<property name="com.jaspersoft.studio.unit.y" value="px"/>
 					<property name="com.jaspersoft.studio.unit.x" value="px"/>
 				</reportElement>
@@ -74,14 +84,14 @@ ON P.idLugarTuristico = rf.idLugarTuristico]]>
 		</band>
 	</columnHeader>
 	<detail>
-		<band height="34" splitType="Stretch">
+		<band height="38" splitType="Stretch">
 			<textField>
-				<reportElement x="30" y="0" width="225" height="18" uuid="a9bb56f9-ab6e-4210-b9df-1cd0572b9584"/>
+				<reportElement x="30" y="0" width="225" height="18" uuid="a88f409d-10cd-4e39-a766-3693f8620560"/>
 				<textElement textAlignment="Left"/>
 				<textFieldExpression><![CDATA[$F{nombre}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="320" y="-1" width="160" height="20" uuid="cd30af86-3f9e-470c-bf68-2b517bbec28d">
+				<reportElement x="320" y="-1" width="160" height="20" uuid="8c110208-0f65-4cfa-9edf-1f32166b9d17">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
@@ -91,10 +101,17 @@ ON P.idLugarTuristico = rf.idLugarTuristico]]>
 		</band>
 	</detail>
 	<summary>
-		<band height="284" splitType="Stretch">
+		<band height="292" splitType="Stretch">
+			<staticText>
+				<reportElement x="10" y="10" width="380" height="30" uuid="f15a0c97-75d5-499e-9de6-ffbcac46a128"/>
+				<textElement>
+					<font size="18"/>
+				</textElement>
+				<text><![CDATA[Grafico Lugar Turistico Preferido]]></text>
+			</staticText>
 			<pieChart>
 				<chart evaluationTime="Report">
-					<reportElement x="3" y="60" width="527" height="200" uuid="f975f905-3b55-4486-8546-518ec4761471"/>
+					<reportElement x="3" y="60" width="527" height="200" uuid="fb32eb3c-116a-45f2-923f-fc972d498f01"/>
 					<chartTitle/>
 					<chartSubtitle/>
 					<chartLegend/>
@@ -110,13 +127,6 @@ ON P.idLugarTuristico = rf.idLugarTuristico]]>
 					<itemLabel/>
 				</piePlot>
 			</pieChart>
-			<staticText>
-				<reportElement x="10" y="10" width="380" height="30" uuid="025df7aa-ba12-4c4e-9444-1e748cd2c895"/>
-				<textElement>
-					<font size="18"/>
-				</textElement>
-				<text><![CDATA[Grafico Lugar Turistico Preferido]]></text>
-			</staticText>
 		</band>
 	</summary>
 </jasperReport>

@@ -15,7 +15,5 @@ public interface PersonaDAO
 	
 	public List<PersonaDTO> readAll();
 	
-	public List<PersonaDTO> readReporteLugar();
 	
-	public List<PersonaDTO> readReporteGrupo();
 }
