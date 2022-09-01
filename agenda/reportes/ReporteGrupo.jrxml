@@ -9,7 +9,8 @@
 		<![CDATA[SELECT idPersona, nombre, telefono, total, rf.grupo
 FROM Personas P 
 INNER JOIN (select L_2.idGrupoMusical, L_2.grupo, count(distinct P_2.idPersona)* 100.0 / sum(count( P_2.idPersona)) over() as Total from personas as P_2 left join grupo_musical as L_2 on P_2.idGrupoMusical = L_2.idGrupoMusical group by L_2.idGrupoMusical) as rf
-ON P.idGrupoMusical = rf.idGrupoMusical]]>
+ON P.idGrupoMusical = rf.idGrupoMusical
+Order by rf.grupo]]>
 	</queryString>
 	<field name="idPersona" class="java.lang.Integer">
 		<property name="com.jaspersoft.studio.field.label" value="idPersona"/>
@@ -96,7 +97,7 @@ ON P.idGrupoMusical = rf.idGrupoMusical]]>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
 				<textElement textAlignment="Left"/>
-				<textFieldExpression><![CDATA[$F{total}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{grupo}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>

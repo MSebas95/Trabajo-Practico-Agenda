@@ -75,13 +75,9 @@ public class Vista
 		btnBorrar.setBounds(208, 370, 89, 23);
 		panel.add(btnBorrar);
 		
-		btnReporte = new JButton("Musica");
+		btnReporte = new JButton("Reportes");
 		btnReporte.setBounds(307, 370, 89, 23);
 		panel.add(btnReporte);
-		
-		btnReporteLugares = new JButton("Lugares");
-		btnReporteLugares.setBounds(406, 370, 89, 23);
-		panel.add(btnReporteLugares);
 	}
 	
 	public void show()
@@ -124,10 +120,6 @@ public class Vista
 		return btnReporte;
 	}
 	
-	public JButton getBtnReporteLugares() 
-	{
-		return btnReporteLugares;
-	}
 	
 	public DefaultTableModel getModelPersonas() 
 	{

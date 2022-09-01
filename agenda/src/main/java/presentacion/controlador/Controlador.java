@@ -9,6 +9,7 @@ import java.util.List;
 import modelo.Agenda;
 import presentacion.reportes.ReporteLugares;
 import presentacion.reportes.ReporteMusical;
+import presentacion.vista.SeleccionarReporte;
 import presentacion.vista.VentanaPersona;
 import presentacion.vista.Vista;
 import dto.GrupoMusicalDTO;
@@ -30,6 +31,7 @@ public class Controlador implements ActionListener
 		private HashMap<String, LocalidadDTO> localidadByName;
 		private HashMap<String, ProvinciaDTO> provinciaById;
 		private HashMap<String, PaisDTO> paisById;
+		private SeleccionarReporte seleccionarReporte;
 		private VentanaPersona ventanaPersona;
 		private VentanaPersona ventanaPersonaEditar;
 		private UbicacionDTO ubicacion;
@@ -41,11 +43,13 @@ public class Controlador implements ActionListener
 			this.vista.getBtnAgregar().addActionListener(a->ventanaAgregarPersona(a));
 			this.vista.getbtnEditar().addActionListener(s->editarPersona(s));
 			this.vista.getBtnBorrar().addActionListener(s->borrarPersona(s));
-			this.vista.getBtnReporte().addActionListener(r->mostrarReporteMusical(r));
-			this.vista.getBtnReporteLugares().addActionListener(r->mostrarReporteLugares(r));
+			this.vista.getBtnReporte().addActionListener(j->ventanaSelectorReporte(j));
 			this.agenda = agenda;
 			this.ventanaPersona = VentanaPersona.getInstance(this.agenda.obtenerTipoContacto(), this.agenda.obtenerLugarTuristico(), this.agenda.obtenerGrupoMusical(), this.agenda.obtenerUbicaciones());		
 			this.ventanaPersona.getBtnAgregarPersona().addActionListener(p->guardarPersona(p));
+			this.seleccionarReporte = seleccionarReporte.getInstance();
+			this.seleccionarReporte.getBtnLugarTuristico().addActionListener(r->mostrarReporteLugares(r));
+			this.seleccionarReporte.getBtnGrupoMusical().addActionListener(k->mostrarReporteMusical(k));
 		}
 		
 		private void ventanaAgregarPersona(ActionEvent a) {
@@ -84,16 +88,23 @@ public class Controlador implements ActionListener
 		}
 
 
+		private void ventanaSelectorReporte (ActionEvent j) {
+			this.seleccionarReporte.mostrarVentana();
+			
+		}
+		
 		
 		private void mostrarReporteLugares(ActionEvent r) {
 			ReporteMusical reporte = new ReporteMusical("ReporteLugarTuristico.jasper");
 			reporte.mostrar();	
+			this.seleccionarReporte.ocultarVentana();
 		}
 		
 		private void mostrarReporteMusical(ActionEvent r) {
 			
 			ReporteMusical reporte = new ReporteMusical("ReporteGrupo.jasper");
-			reporte.mostrar();	
+			reporte.mostrar();
+			this.seleccionarReporte.ocultarVentana();
 		}
 		
 		public void editarPersona(ActionEvent s)
