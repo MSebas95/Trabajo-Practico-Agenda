@@ -7,6 +7,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+import java.awt.Color;
 
 public class SeleccionarReporte extends JFrame {
 
@@ -38,6 +39,7 @@ public class SeleccionarReporte extends JFrame {
 		contentPane.setLayout(null);
 		
 		JPanel panel = new JPanel();
+		panel.setBackground(new Color(255, 160, 122));
 		panel.setBounds(0, 0, 526, 600);
 		contentPane.add(panel);
 		panel.setLayout(null);
@@ -48,10 +50,12 @@ public class SeleccionarReporte extends JFrame {
 		panel.add(lblPregunta);
 		
 		BtnLugarTuristico = new JButton("Lugar Turistico");
+		BtnLugarTuristico.setBackground(new Color(255, 255, 255));
 		BtnLugarTuristico.setBounds(130, 70, 220, 35);
 		panel.add(BtnLugarTuristico);
 		
 		BtnGrupoMusical = new JButton("Grupo Musical");
+		BtnGrupoMusical.setBackground(new Color(255, 255, 255));
 		BtnGrupoMusical.setBounds(130, 130, 220, 35);
 		panel.add(BtnGrupoMusical);
 		

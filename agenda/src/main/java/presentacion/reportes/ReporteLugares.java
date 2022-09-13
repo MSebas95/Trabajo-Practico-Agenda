@@ -30,7 +30,7 @@ public class ReporteLugares
 		Map<String, Object> parametersMap = new HashMap<String, Object>();
 		parametersMap.put("Fecha", new SimpleDateFormat("dd/MM/yyyy").format(new Date()));		
     	try		{
-			this.reporte = (JasperReport) JRLoader.loadObjectFromFile( "reportes" + File.separator + report );
+			this.reporte = (JasperReport) JRLoader.loadObjectFromFile( report );
 			this.reporteLleno = JasperFillManager.fillReport(this.reporte, parametersMap, 
 					Conexion.getConexion().getSQLConexion());
     		log.info("Se cargó correctamente el reporte");

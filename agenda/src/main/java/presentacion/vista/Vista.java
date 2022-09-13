@@ -17,6 +17,11 @@ import dto.PersonaDTO;
 import javax.swing.JButton;
 
 import persistencia.conexion.Conexion;
+import java.awt.Color;
+import javax.swing.border.BevelBorder;
+import javax.swing.border.MatteBorder;
+import javax.swing.border.LineBorder;
+import javax.swing.border.CompoundBorder;
 
 public class Vista
 {
@@ -40,21 +45,30 @@ public class Vista
 	private void initialize() 
 	{
 		frame = new JFrame();
-		frame.setBounds(100, 100, 1080, 500);
+		frame.getContentPane().setForeground(new Color(255, 255, 255));
+		frame.setBackground(new Color(255, 255, 255));
+		frame.getContentPane().setBackground(Color.LIGHT_GRAY);
+		frame.setBounds(100, 100, 1090, 440);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		
 		JPanel panel = new JPanel();
-		panel.setBounds(0, 0, 1064, 400);
+		panel.setForeground(new Color(0, 0, 0));
+		panel.setBackground(new Color(255, 160, 122));
+		panel.setBounds(0, 0, 1070, 410);
 		frame.getContentPane().add(panel);
 		panel.setLayout(null);
 		
 		JScrollPane spPersonas = new JScrollPane();
-		spPersonas.setBounds(10, 11, 1032, 282);
+		spPersonas.setViewportBorder(new CompoundBorder());
+		spPersonas.setBounds(22, 10, 1032, 282);
 		panel.add(spPersonas);
 		
 		modelPersonas = new DefaultTableModel(null,nombreColumnas);
 		tablaPersonas = new JTable(modelPersonas);
+		tablaPersonas.setBackground(Color.WHITE);
+		tablaPersonas.setForeground(new Color(0, 0, 0));
+		tablaPersonas.setBorder(new LineBorder(new Color(51, 153, 255)));
 		
 		tablaPersonas.getColumnModel().getColumn(0).setPreferredWidth(103);
 		tablaPersonas.getColumnModel().getColumn(0).setResizable(false);
@@ -64,18 +78,26 @@ public class Vista
 		spPersonas.setViewportView(tablaPersonas);
 		
 		btnAgregar = new JButton("Agregar");
+		btnAgregar.setForeground(new Color(0, 0, 0));
+		btnAgregar.setBackground(Color.WHITE);
 		btnAgregar.setBounds(10, 370, 89, 23);
 		panel.add(btnAgregar);
 		
 		btnEditar = new JButton("Editar");
+		btnEditar.setForeground(new Color(0, 0, 0));
+		btnEditar.setBackground(Color.WHITE);
 		btnEditar.setBounds(109, 370, 89, 23);
 		panel.add(btnEditar);
 		
 		btnBorrar = new JButton("Borrar");
+		btnBorrar.setForeground(new Color(0, 0, 0));
+		btnBorrar.setBackground(Color.WHITE);
 		btnBorrar.setBounds(208, 370, 89, 23);
 		panel.add(btnBorrar);
 		
 		btnReporte = new JButton("Reportes");
+		btnReporte.setForeground(new Color(0, 0, 0));
+		btnReporte.setBackground(Color.WHITE);
 		btnReporte.setBounds(307, 370, 89, 23);
 		panel.add(btnReporte);
 	}

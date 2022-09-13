@@ -24,6 +24,7 @@ import dto.LugarTuristicoDTO;
 import dto.PaisDTO;
 import dto.PersonaDTO;
 import dto.ProvinciaDTO;
+import java.awt.Color;
 
 
 public class VentanaPersona extends JFrame 
@@ -88,11 +89,13 @@ public class VentanaPersona extends JFrame
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 570, 700);
 		contentPane = new JPanel();
+		contentPane.setBackground(new Color(255, 160, 122));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
 		JPanel panel = new JPanel();
+		panel.setBackground(new Color(255, 160, 122));
 		panel.setBounds(0, 0, 500, 600);
 		contentPane.add(panel);
 		panel.setLayout(null);
@@ -200,6 +203,7 @@ public class VentanaPersona extends JFrame
 		
 	
 		btnAgregarPersona = new JButton("Agregar");
+		btnAgregarPersona.setBackground(new Color(255, 255, 255));
 		btnAgregarPersona.setBounds(326, 567, 89, 23);
 		panel.add(btnAgregarPersona);
 		
@@ -251,11 +255,13 @@ public class VentanaPersona extends JFrame
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 570, 700);
 		contentPane = new JPanel();
+		contentPane.setBackground(new Color(255, 160, 122));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
 		JPanel panel = new JPanel();
+		panel.setBackground(new Color(255, 160, 122));
 		panel.setBounds(0, 0, 500, 600);
 		contentPane.add(panel);
 		panel.setLayout(null);
@@ -371,6 +377,7 @@ public class VentanaPersona extends JFrame
 		
 	
 		btnEditarPersona = new JButton("Editar");
+		btnEditarPersona.setBackground(new Color(255, 255, 255));
 		btnEditarPersona.setBounds(322, 567, 89, 23);
 		panel.add(btnEditarPersona);
 		

@@ -13,8 +13,8 @@ import dto.PersonaDTO;
 
 public class PersonaDAOSQL implements PersonaDAO
 {
-	private static final String insert = "INSERT INTO personas(nombre, telefono, idTipoContacto, idLocalidad, Calle, altura, piso , depto, email, cumpleaños, idGrupoMusical, idLugarTuristico) VALUES( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-	private static final String edit = "UPDATE PERSONAS SET Nombre = ?, Telefono = ?, idTipoContacto = ?, idLocalidad = ?, Calle = ?, altura = ?, piso = ?, depto = ?, email = ?, cumpleaños = ?, idGrupoMusical = ?, idLugarTuristico = ? WHERE idPersona = ?";
+	private static final String insert = "INSERT INTO personas(nombre, telefono, idTipoContacto, idLocalidad, Calle, altura, piso , depto, email, cumpleanos, idGrupoMusical, idLugarTuristico) VALUES( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+	private static final String edit = "UPDATE PERSONAS SET Nombre = ?, Telefono = ?, idTipoContacto = ?, idLocalidad = ?, Calle = ?, altura = ?, piso = ?, depto = ?, email = ?, cumpleanos = ?, idGrupoMusical = ?, idLugarTuristico = ? WHERE idPersona = ?";
 	private static final String delete = "DELETE FROM personas WHERE idPersona = ?";
 	private static final String readall = "SELECT * FROM Personas p INNER JOIN TIPO_CONTACTO t ON p.idTipoContacto = t.idTipoContacto INNER JOIN GRUPO_MUSICAL m ON p.idGrupoMusical = m.idGrupoMusical INNER JOIN LUGAR_TURISTICO q ON p.idLugarTuristico = q.idLugarTuristico INNER JOIN LOCALIDAD l ON p.idLocalidad = l.idLocalidad ORDER BY lugar";
 	public boolean insert(PersonaDTO persona)
@@ -161,7 +161,7 @@ public class PersonaDAOSQL implements PersonaDAO
 		persona.setTipoContactoId(resultSet.getInt("idTipoContacto"));
 		persona.setGrupoMusicalId(resultSet.getInt("idGrupoMusical"));
 		persona.setIdLugarTuristico(resultSet.getInt("idLugarTuristico"));
-		persona.setCumpleanios(resultSet.getString("cumpleaños"));
+		persona.setCumpleanios(resultSet.getString("cumpleanos"));
 		persona.setTipoContacto(resultSet.getString("Tipo"));
 		persona.setGrupo(resultSet.getString("grupo"));
 		persona.setLugar(resultSet.getString("lugar"));
